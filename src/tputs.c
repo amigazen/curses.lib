@@ -51,7 +51,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/tputs.c,v 1.1 1993/05/17 
 #include "acurses.h"
 
 
-tputs(char *cp, int affcnt, int(*outc)(char))
+int tputs(char *cp, int affcnt, int(*outc)(char))
 {
   int delay = 0;
   
@@ -110,7 +110,10 @@ tputs(char *cp, int affcnt, int(*outc)(char))
       break;
       
     case '^':                   /* control character */
-      outc(toupper(*++cp) - '@'); /* this line assumes ascii */
+      {
+        char c = *++cp;
+        outc(toupper(c) - '@'); /* this line assumes ascii */
+      }
       break;
       
     default:
@@ -122,4 +125,5 @@ tputs(char *cp, int affcnt, int(*outc)(char))
 #ifdef FUTURE
 }
 #endif
+  return 0;
 }

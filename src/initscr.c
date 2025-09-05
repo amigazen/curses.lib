@@ -82,14 +82,12 @@ static char *version = "$VER: Amiga curses (SJR) version 2.00+";
 #include <signal.h>
 #include "acurses.h"
 
-extern struct Library *ConsoleDevice;
-
 static struct NewScreen NewScreen = {
   0, 0, 0, 0, 4, 0, 1, HIRES, CUSTOMSCREEN, NULL, "Curses screen", NULL, NULL
 };
 
 static struct NewWindow NewWindow = {
-  0, 0, 0, 0, -1, -1, RAWKEY, ACTIVATE | BORDERLESS,
+  0, 0, 0, 0, 0xFF, 0xFF, RAWKEY, ACTIVATE | BORDERLESS,
   NULL, NULL, NULL, NULL, NULL, 0,0,0,0, CUSTOMSCREEN
 };
 

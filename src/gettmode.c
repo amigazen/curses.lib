@@ -50,7 +50,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/gettmode.c,v 1.1 1993/05/
 
 #include "curses.h"
 
-gettmode()
+int gettmode()
 {
   return OK;
 }
