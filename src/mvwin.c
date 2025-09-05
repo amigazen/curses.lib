@@ -53,7 +53,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/mvwin.c,v 1.2 1993/05/17 
 #include "acurses.h"
 
 
-mvwin(WINDOW *WinPtr, short int NewLine, short int NewCol)
+int mvwin(WINDOW *WinPtr, int NewLine, int NewCol)
 {
   if(!(_CursesFlags & CFLAG_INITSCR))
     return ERR;

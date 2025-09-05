@@ -50,7 +50,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/mvwprintw.c,v 1.1 1991/09
 #include <stdarg.h>
 
 
-mvwprintw(WINDOW *WinPtr, short int Line, short int Col, char *fmt, ...)
+int mvwprintw(WINDOW *WinPtr, int Line, int Col, char *fmt, ...)
 {
   int Ret;
   char buffer[BUFSIZ];

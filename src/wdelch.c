@@ -54,7 +54,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wdelch.c,v 1.2 1991/12/28
 #include "acurses.h"
 
 
-wdelch(WINDOW *WinPtr)
+int wdelch(WINDOW *WinPtr)
 {
   int i;
   

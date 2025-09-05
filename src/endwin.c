@@ -64,7 +64,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/endwin.c,v 1.4 1993/05/17
  *  Close the screen and libraries.
  */
 
-endwin(void)                  /* called from main prior to exit. */
+int endwin(void)                  /* called from main prior to exit. */
 {
   if(!(_CursesFlags & CFLAG_INITSCR)) {  /* haven't called initscr() */
     return ERR;

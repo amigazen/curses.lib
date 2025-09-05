@@ -56,7 +56,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wgetstr.c,v 1.3 1993/05/1
 #include "acurses.h"
 
 
-wgetstr(WINDOW *WinPtr, char *ptr)
+int wgetstr(WINDOW *WinPtr, char *ptr)
 {
   char done = FALSE, *BuffStart;
   unsigned char CbreakSet;  /* Used to restore after */

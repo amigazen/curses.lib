@@ -57,7 +57,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/winch.c,v 1.3 1993/05/17 
 #include "acurses.h"
 
 
-winch(WINDOW *WinPtr)
+int winch(WINDOW *WinPtr)
 {
   if(!WinPtr)
     return ERR;

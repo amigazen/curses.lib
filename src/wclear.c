@@ -64,7 +64,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wclear.c,v 1.5 1993/05/17
 #include "acurses.h"
 
 
-wclear(WINDOW *WinPtr)
+int wclear(WINDOW *WinPtr)
 {
   int Line;
   

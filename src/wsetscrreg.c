@@ -57,7 +57,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wsetscrreg.c,v 1.3 1993/0
 #include "acurses.h"
 
 
-wsetscrreg(WINDOW *WinPtr, short int top, short int bottom)
+int wsetscrreg(WINDOW *WinPtr, int top, int bottom)
 {
   if(!(_CursesFlags & CFLAG_INITSCR))
     return ERR;

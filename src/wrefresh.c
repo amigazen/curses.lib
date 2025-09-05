@@ -119,7 +119,7 @@ static void _optimise(WINDOW *winptr, int line)
   }
 }
 
-wrefresh(WINDOW *WinPtr)
+int wrefresh(WINDOW *WinPtr)
 {
   int i, j;
   unsigned long style;

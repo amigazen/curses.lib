@@ -53,7 +53,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wmove.c,v 1.2 1993/05/17 
 #include "acurses.h"
 
 
-wmove(WINDOW *WinPtr, short int Line, short int Col)
+int wmove(WINDOW *WinPtr, int Line, int Col)
 {
   if(!WinPtr)
     return ERR;

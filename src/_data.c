@@ -89,7 +89,7 @@ BPTR _ifh = NULL;
 BYTEBITS _CursesFlags = CFLAG_ECHO | CFLAG_NLCR | CFLAG_CURSOR;
 int _CursesType = CUST_CURSES;	/* default to use graphics library */
 
-short _CursorCol = 0, _CursorLine = 0, _LCursorLine = -1, _LCursorCol = -1;
+int _CursorCol = 0, _CursorLine = 0, _LCursorLine = -1, _LCursorCol = -1;
 struct RefreshElement *_HeadRefreshList=(struct RefreshElement *)NULL;
 
 WINDOW *stdscr = (WINDOW *)NULL, *curscr = (WINDOW *)NULL;

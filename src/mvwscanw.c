@@ -54,7 +54,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/mvwscanw.c,v 1.2 1992/12/
 #include <stdarg.h>
 
 
-mvwscanw(WINDOW *WinPtr, short int Line, short int Col, char *fmt,
+int mvwscanw(WINDOW *WinPtr, int Line, int Col, char *fmt,
          char *ptr1, char *ptr2, char *ptr3, char *ptr4, char *ptr5,
          char *ptr6, char *ptr7, char *ptr8, char *ptr9, char *ptr10)
 {

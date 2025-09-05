@@ -247,18 +247,18 @@ int flushinp(void);
 int wgetch(WINDOW *WinPtr);
 int wgetstr(WINDOW *WinPtr, char *ptr);
 int winch(WINDOW *WinPtr);
-int wmove(WINDOW *WinPtr, short Line, short Col);
+int wmove(WINDOW *WinPtr, int Line, int Col);
 int mvcur(int CurLine, int CurCol, int NewLine, int NewCol);
 int printw(char *fmt, ...);
 int wprintw(WINDOW *WinPtr, char *fmt, ...);
-int mvprintw(short Line, short Col, char *fmt, ...);
-int mvwprintw(WINDOW *WinPtr, short Line, short Col, char *fmt, ...);
+int mvprintw(int Line, int Col, char *fmt, ...);
+int mvwprintw(WINDOW *WinPtr, int Line, int Col, char *fmt, ...);
 int wrefresh(WINDOW *WinPtr);
 #ifndef NO_SCAN_PROTOS
 int scanw(char *fmt, ...);
 int wscanw(WINDOW *WinPtr, char *fmt, ...);
-int mvscanw(short Line, short Col, char *fmt, ...);
-int mvwscanw(WINDOW *WinPtr, short Line, short Col, char *fmt, ...);
+int mvscanw(int Line, int Col, char *fmt, ...);
+int mvwscanw(WINDOW *WinPtr, int Line, int Col, char *fmt, ...);
 #endif /* ndef NO_SCAN_PROTOS */
 int wstandout(WINDOW *WinPtr);
 int wstandend(WINDOW *WinPtr);
@@ -297,9 +297,9 @@ WINDOW *newwin(unsigned int NLines,
                unsigned int StartCol);
 int touchwin(WINDOW *WinPtr);
 int delwin(WINDOW *WinPtr);
-int mvwin(WINDOW *WinPtr, short NewLine, short NewCol);
+int mvwin(WINDOW *WinPtr, int NewLine, int NewCol);
 int scroll(WINDOW *WinPtr);
-int wsetscrreg(WINDOW *WinPtr, short top, short bottom);
+int wsetscrreg(WINDOW *WinPtr, int top, int bottom);
 int scrollok(WINDOW *WinPtr, int flag);
 int wnoutrefresh(WINDOW *WinPtr);
 int doupdate(void);

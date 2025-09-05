@@ -173,7 +173,7 @@ struct RefreshElement {
 extern unsigned char _CursesFlags;
 extern int _CursesType;
 extern unsigned char _GetchNChars, _GetchBufPos;
-extern short _CursorCol, _CursorLine, _LCursorLine, _LCursorCol;
+extern int _CursorCol, _CursorLine, _LCursorLine, _LCursorCol;
 extern struct RefreshElement *_HeadRefreshList;
 extern struct RastPort *_RPort;
 extern struct ViewPort *_VPort;

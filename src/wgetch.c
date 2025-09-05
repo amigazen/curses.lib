@@ -65,7 +65,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wgetch.c,v 1.6 1993/05/17
 #include <fcntl.h>
 #include "acurses.h"
 
-wgetch(WINDOW *WinPtr)
+int wgetch(WINDOW *WinPtr)
 {
   static unsigned char buffer[RAWBUFSIZ];
   int Class, i;

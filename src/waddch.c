@@ -49,7 +49,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/waddch.c,v 1.1 1991/09/07
 #include "curses.h"
 
 
-waddch(WINDOW *WinPtr, char c)
+int waddch(WINDOW *WinPtr, char c)
 {
   char *str = " ";
   

@@ -69,7 +69,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/waddstr.c,v 1.7 1993/05/1
 #include "acurses.h"
 
 
-waddstr(WINDOW *WinPtr, char *Str)
+int waddstr(WINDOW *WinPtr, char *Str)
 {
   if(!*Str)
     return OK;

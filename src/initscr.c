@@ -111,7 +111,7 @@ _BreakHandler(void)
   return 0;
 }
 
-initscr(void)
+int initscr(void)
 {
   char *Ptr, *getenv(const char *);
   int Tmp;

@@ -54,7 +54,7 @@ static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/winsch.c,v 1.2 1991/12/28
 #include "acurses.h"
 
 
-winsch(WINDOW *WinPtr, char c)
+int winsch(WINDOW *WinPtr, char c)
 {
   int i;
   
