@@ -1,12 +1,15 @@
-# -*-make-*-
+#
 ##################################################################
 #
 # Desc   : Makefile for amiga curses using GNUC
 #
-# Author : Simon J Raybould.	(sie@fulcrum.co.uk)
+# Author : Simon J Raybould.
 #
 # Date   : Thursday 27th August 1992.
 #
+# Copyright (c) 1991-1993 Simon J Raybould
+#
+# SPDX-License-Identifier: BSD-2-Clause
 #
 # Revision History
 # ================

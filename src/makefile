@@ -1,40 +1,25 @@
-# -*-Text-*-
+# 
 #
-# Filename     : SRC:lib/curses/src/Makefile
+# Filename     : Makefile
 #
-# Author       : Simon J Raybould.  (sie@fulcrum.co.uk)
+# Author       : Simon J Raybould.
 #
 # Date         : Friday 23rd August 1991.
 #
 # Desc         : Makefile for Amiga curses library.
 #
 #
-# THIS CODE IS NOT PUBLIC DOMAIN
-# ==============================
-# 
-# This code is copyright Simon J Raybould 1992, all rights are reserved.
-# All code, ideas, data structures and algorithms remain the property of the
-# author. Neither the whole nor sections of this code may be used as part
-# of other code without the authors consent. If you wish to use some of this
-# code then please email me at (sie@fulcrum.bt.co.uk).
+# Copyright (c) 1991-1993 Simon J Raybould
 #
-# This source is not public domain, so you do not have any right to alter it
-# or sell it for personal gain. The source is provided purely for reference
-# purposes. You may re-compile the source with any compiler you choose.
-# You must not distribute altered copies without the authors consent. My
-# intention is that the source will help people isolate any bugs much more
-# effectively.
-#
-# Disclaimer
-# ==========
-#
-# No implication is made as to this code being fit for any purpose at all.
-# I (the author) shall not be held responsible for any loss of data or damage 
-# to property that may result from its use or misuse.
+# SPDX-License-Identifier: BSD-2-Clause
 #
 #
 # Revision History
 # ================
+#
+# $Log: Makefile,v $
+# Revision 1.12  2025/09/05  21:18:08  amigazen
+# Revised to build with SAS/C 6.58 and NDK 3.2
 #
 # $Log: Makefile,v $
 # Revision 1.11  1994/02/21  22:18:08  sie
@@ -73,7 +58,7 @@
 # 
 #
 
-VER= V2.00
+VER= V2.10
 SRCS=	wclrtobot.c flushinp.c wgetstr.c subwin.c mvprintw.c wscanw.c \
 	scanw.c mvwscanw.c mvscanw.c printw.c newwin.c _creatwin.c \
 	touchwin.c delwin.c mvwin.c scroll.c wsetscrreg.c _scroll.c \
