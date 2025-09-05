@@ -1,21 +1,21 @@
-CC= lc
-CFLAGS= -cw
-MAKE= lmk
+CC= sc
+CFLAGS=
+MAKE= make
 
 all: knight rain worms fm
 
 
 knight: knight.c
-	$(CC) $(CFLAGS) -L+llib:curses.lib+lib:lcm.lib $@
+	$(CC) $(CFLAGS) link LIB llib:curses.lib lib:scm.lib $@
 
 rain: rain.c
-	$(CC) $(CFLAGS) -L+llib:curses.lib+lib:lcm.lib $@
+	$(CC) $(CFLAGS) link LIB llib:curses.lib lib:scm.lib $@
 
 worms: worms.c
-	$(CC) $(CFLAGS) -L+llib:curses.lib+lib:lcm.lib $@
+	$(CC) $(CFLAGS) link LIB llib:curses.lib lib:scm.lib $@
 
 fm: fm.c
-	$(CC) $(CFLAGS) -L+llib:curses.lib $@
+	$(CC) $(CFLAGS) link LIB llib:curses.lib $@
 
 clean:
 	-delete \#?.lnk \#?.o \#?.info

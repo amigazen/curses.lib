@@ -37,7 +37,16 @@
  * Revision History
  * ================
  *
- * $Log:	_scroll.c,v $
+ * $Log: _scroll.c,v $
+ * Revision 1.9  1993/05/17  23:29:43  sie
+ * Underscores added to names.
+ *
+ * Revision 1.8  1992/12/25  23:42:17  sie
+ * Set x coord to 0 after a scroll operation.
+ *
+ * Revision 1.7  92/08/13  23:08:06  sie
+ * Fixed bug that corrupted colours when screen scrolled.
+ * 
  * Revision 1.6  92/06/21  01:14:47  sie
  * Now marks scroll lines as requiring refreshing.
  * 
@@ -61,13 +70,13 @@
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/_scroll.c,v 1.6 92/06/21 01:14:47 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/_scroll.c,v 1.9 1993/05/17 23:29:43 sie Exp $";
 
 #include <string.h>
 #include "acurses.h"
 
 
-Scroll(WINDOW *WinPtr, int Top, int Bottom, int Direction)
+_Scroll(WINDOW *WinPtr, int Top, int Bottom, int Direction)
 {
   int Step, SLine, DLine;
   char *TLine;
@@ -99,7 +108,6 @@ Scroll(WINDOW *WinPtr, int Top, int Bottom, int Direction)
     /* move the lines and attrs */
     WinPtr->LnArry[DLine].Line = WinPtr->LnArry[SLine].Line;
     WinPtr->LnArry[DLine].ATTRS = WinPtr->LnArry[SLine].ATTRS;
-    memset(WinPtr->LnArry[DLine].ATTRS, WinPtr->_attrs, WinPtr->_maxx+1);
     /* next line */
     SLine += Step;
     DLine += Step;
@@ -110,6 +118,7 @@ Scroll(WINDOW *WinPtr, int Top, int Bottom, int Direction)
   /* move in temp line */
   WinPtr->LnArry[DLine].Line = TLine;
   WinPtr->LnArry[DLine].ATTRS = TATTRS;
+  WinPtr->_curx = 0;            /* back to left margin */
   
   return OK;
 }

@@ -37,24 +37,27 @@
  * Revision History
  * ================
  *
- * $Log:	_zapcur.c,v $
- * Revision 1.1  91/09/07  11:53:36  sie
+ * $Log: _zapcur.c,v $
+ * Revision 1.2  1993/05/17  23:28:52  sie
+ * Underscores added to names.
+ *
+ * Revision 1.1  1991/09/07  11:53:36  sie
  * Initial revision
- * 
+ *
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/_zapcur.c,v 1.1 91/09/07 11:53:36 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/_zapcur.c,v 1.2 1993/05/17 23:28:52 sie Exp $";
 
 #include "acurses.h"
 
 
 void
-ZapCursor(void)
+_ZapCursor(void)
 {
   /* If there was a cursor then blank it */
-  if(LCursorCol >= 0 && LCursorLine >= 0)
-    ToggleCursor(LCursorLine, LCursorCol);
+  if(_LCursorCol >= 0 && _LCursorLine >= 0)
+    _ToggleCursor(_LCursorLine, _LCursorCol);
   
-  LCursorCol = LCursorLine = -1;
+  _LCursorCol = _LCursorLine = -1;
 }

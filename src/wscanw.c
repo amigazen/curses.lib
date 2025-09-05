@@ -37,24 +37,28 @@
  * Revision History
  * ================
  *
- * $Log:	wscanw.c,v $
+ * $Log: wscanw.c,v $
+ * Revision 1.2  1992/12/25  23:38:48  sie
+ * Fixed the bug with scanw().
+ * There is no svscanf() function!
+ *
  * Revision 1.1  91/09/07  11:52:14  sie
  * Initial revision
  * 
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/wscanw.c,v 1.1 91/09/07 11:52:14 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wscanw.c,v 1.2 1992/12/25 23:38:48 sie Exp $";
 
 #include "curses.h"
 #include <stdarg.h>
 
-wscanw(WINDOW *WinPtr, char *fmt, ...)
+wscanw(WINDOW *WinPtr, char *fmt,
+       char *ptr1, char *ptr2, char *ptr3, char *ptr4, char *ptr5,
+       char *ptr6, char *ptr7, char *ptr8, char *ptr9, char *ptr10)
 {
   char buffer[BUFSIZ];
-  va_list ap;
   
-  va_start(ap, fmt);
   wgetstr(WinPtr, buffer);
-  return sscanf(buffer, fmt, ap);
+  return sscanf(buffer, fmt, ptr1, ptr2, ptr3, ptr4, ptr5, ptr6, ptr7, ptr8, ptr9, ptr10);
 }

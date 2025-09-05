@@ -37,7 +37,24 @@
  * Revision History
  * ================
  *
- * $Log:	initscr.c,v $
+ * $Log: initscr.c,v $
+ * Revision 1.8  1994/02/21  22:12:00  sie
+ * added call to setupterm.
+ * renamed BreakHandler as _BreakHandler
+ *
+ * Revision 1.7  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.6  1992/12/26  00:23:56  sie
+ * Made more amendments to the LINES and COLS calculations.
+ * Now sets them according to the system font and screen mode.
+ * They are over-ridden if the env variables are set up.
+ * In ANSI mode, they are just set to 24 and 80.
+ *
+ * Revision 1.5  92/07/14  20:45:27  sie
+ * fixed screen size problems.
+ * 
  * Revision 1.4  92/06/10  23:44:41  sie
  * Added serial support.
  * 
@@ -55,153 +72,162 @@
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/initscr.c,v 1.4 92/06/10 23:44:41 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/initscr.c,v 1.8 1994/02/21 22:12:00 sie Exp $";
 
+/* version strings */
+#define VERSION      "Amiga curses by Simon J Raybould  V2.00+ 30.Jun.92"
+static char *version = "$VER: Amiga curses (SJR) version 2.00+";
+
+
+#include <signal.h>
 #include "acurses.h"
 
+extern struct Library *ConsoleDevice;
 
 static struct NewScreen NewScreen = {
   0, 0, 0, 0, 4, 0, 1, HIRES, CUSTOMSCREEN, NULL, "Curses screen", NULL, NULL
 };
 
 static struct NewWindow NewWindow = {
-  0, 0, 0, 0, -1, -1, RAWKEY, ACTIVATE | BORDERLESS, NULL, NULL, NULL, NULL,
-  NULL, 0,0,0,0, CUSTOMSCREEN
+  0, 0, 0, 0, -1, -1, RAWKEY, ACTIVATE | BORDERLESS,
+  NULL, NULL, NULL, NULL, NULL, 0,0,0,0, CUSTOMSCREEN
 };
 
 /*
  *  Make version number appear when right mouse button is pressed.
  */
 static struct Menu _CursesMenu = {
-  NULL, 0, 0, 0, 0, 0,
-  "AMIGA CURSES by Simon J Raybould  V2.00 30.Jun.92",
-  NULL, 0, 0, 0, 0
+  NULL, 0, 0, 0, 0, 0, VERSION, NULL, 0, 0, 0, 0
 };
 
-UWORD ColourTable[] = {
+static UWORD _ColourTable[] = {
   0x000, 0xfff, 0xff0, 0x00f, 0xf0f, 0x0ff, 0xf00, 0x0f0
 };
 
-int
-BreakHandler(void)
+static int
+_BreakHandler(void)
 {
   endwin();			/* tidy up */
   fprintf(stderr, "Amiga Curses exiting after receiving interrupt signal\n");
-  CleanExit(20);
+  _CleanExit(20);
   return 0;
 }
 
 initscr(void)
 {
   char *Ptr, *getenv(const char *);
-  int Tmp, BreakHandler();
+  int Tmp;
   struct Screen WBScreen;
   
   /*
    *  It would be devestating if someone called initscr() twice
-   *  so make subsequent calls fail.
+   *  so make subsequent calls just return OK.
    */
-  if(CursesFlags & CFLAG_INITSCR)
-    return ERR;
+  if(_CursesFlags & CFLAG_INITSCR)
+    return OK;
   
-  CursesFlags |= CFLAG_INITSCR;
+  _CursesFlags |= CFLAG_INITSCR;
   
-  CursesType = CUST_CURSES;
+  /* Work out which sort of curses is required */
+  _CursesType = CUST_CURSES;
   if(Ptr = getenv("CURSESTYPE")) {
-    if(!strcmp(Ptr, "ansi"))
-      CursesType = ANSI_CURSES;
+    if(!strcmp(Ptr, "ansi") || !strcmp(Ptr, "ANSI"))
+      _CursesType = ANSI_CURSES;
   }
-  if(CursesType == CUST_CURSES) {
+  if(_CursesType == CUST_CURSES) {
     if((IntuitionBase = (struct IntuitionBase *)
 	OpenLibrary("intuition.library", 0)) == NULL) {
       fprintf(stderr, "Failed to open Intuition library");
-      CleanExit(10);
+      _CleanExit(10);
     }
     /* Open graphics library */
     if((GfxBase = (struct GfxBase *)
 	OpenLibrary("graphics.library", 0))==NULL) {
       fprintf(stderr, "Failed to open Graphics library");
-      CleanExit(10);
+      _CleanExit(10);
     }
-    /* Get Font height and Width */
-    if(!GetScreenData((char *)&WBScreen, sizeof(struct Screen), WBENCHSCREEN,
-		      NULL)) {
+    /* Get WB screen height and Width */
+    if(!GetScreenData((char *)&WBScreen, sizeof(struct Screen), WBENCHSCREEN, NULL)) {
       printf("Can't get screen size\n");
       exit(10);
     }
-    
     NewScreen.Height = NewWindow.Height = WBScreen.Height;
     NewScreen.Width = NewWindow.Width = WBScreen.Width;
     NewScreen.Depth = DEPTH;
-    /* Set interlace if height >= 400 */
-    if(NewScreen.Height>400)
+    /* Set interlace if height>=400 */
+    if(NewScreen.Height>=400)
       NewScreen.ViewModes |= LACE;
     
     /*
      * must have the console.device opened to use RawKeyConvert()
      */
     if(OpenDevice("console.device", -1L, (struct IORequest *)&ioreq, 0L))
-      CleanExit(10);
-    ConsoleDevice=(struct Library *)ioreq.io_Device;
+      _CleanExit(10);
+    ConsoleDevice = (struct Library *)ioreq.io_Device;
     
-    if((CursesScreen=(struct Screen *)OpenScreen(&NewScreen)) == NULL) {
+    if((_CursesScreen = (struct Screen *)OpenScreen(&NewScreen)) == NULL) {
       fprintf(stderr, "Failed to open Screen");
-      CleanExit(10);
+      _CleanExit(10);
     }
-    RPort = &(CursesScreen->RastPort);
-    VPort = &(CursesScreen->ViewPort);
-    /* Get font size */
-    FontHeight = RPort->Font->tf_YSize;
-    FontWidth = RPort->Font->tf_XSize;
-    FontBase = RPort->Font->tf_Baseline;
+    _RPort = &(_CursesScreen->RastPort);
+    _VPort = &(_CursesScreen->ViewPort);
 
-    LINES = NewScreen.Height/FontHeight;
-    COLS = NewScreen.Width/FontWidth;
-  }
-  
-  /* if LINES and/or COLS set as environment variables then use them */
-  if((Ptr = getenv("LINES"))) {
-    Tmp = atoi(Ptr);
-    if(Tmp>0 && Tmp<=MAXLINES)
-      LINES = Tmp;
-  }
-  if((Ptr = getenv("COLS"))) {
-    Tmp = atoi(Ptr);
-    if(Tmp>0 && Tmp<=MAXCOLS)
-      COLS = Tmp;
-  }
-
-  if(CursesType == CUST_CURSES) {
-    LoadRGB4(VPort, ColourTable, (1<<DEPTH));
-    SetDrMd(RPort, JAM2);
-    SetAPen(RPort, 1);
-    NewWindow.Screen = CursesScreen;  /* Must do this !! */
-    if((CursesWindow=(struct Window *)OpenWindow(&NewWindow)) == NULL) {
+    LoadRGB4(_VPort, _ColourTable, (1<<DEPTH));
+    SetDrMd(_RPort, JAM2);
+    SetAPen(_RPort, 1);
+    NewWindow.Screen = _CursesScreen;
+    if((_CursesWindow=(struct Window *)OpenWindow(&NewWindow)) == NULL) {
       fprintf(stderr, "Failed to open Window\n");
-      CleanExit(10);
+      _CleanExit(10);
     }
-    SetMenuStrip(CursesWindow, &_CursesMenu);
+    _CursesMsgPort = _CursesWindow->UserPort;
+    SetMenuStrip(_CursesWindow, &_CursesMenu);
+
+    /* Get font size */
+    _FontHeight = _CursesWindow->IFont->tf_YSize;
+    _FontWidth = _CursesWindow->IFont->tf_XSize;
+    _FontBase = _CursesWindow->IFont->tf_Baseline;
+    /* Alter the default LINES and COLS for custom curses */
+    LINES = WBScreen.Height/_FontHeight;
+    COLS = WBScreen.Width/_FontWidth;
+  } else {                      /* ANSI only */
+    /* if LINES and/or COLS set as environment variables then use them */
+    if((Ptr = getenv("LINES"))) {
+      Tmp = atoi(Ptr);
+      if(Tmp>0 && Tmp<=MAXLINES)
+        LINES = Tmp;
+    }
+    if((Ptr = getenv("COLS"))) {
+      Tmp = atoi(Ptr);
+      if(Tmp>0 && Tmp<=MAXCOLS)
+        COLS = Tmp;
+    }
   }
-  
+#ifdef DEBUG
+  printf("FontHeight=%d, FontWidth=%d, FontBase=%d\n", _FontHeight, _FontWidth, _FontBase);
+  printf("LINES=%d, COLS=%d\n", LINES, COLS);
+#endif
+
   /* Create stdscr and curscr */
   stdscr = newwin(LINES, COLS, 0, 0);
   curscr = newwin(LINES, COLS, 0, 0);  /* used for redraws */
 #ifdef LATTICE
-  if(onbreak(BreakHandler)) {
+  if(onbreak(_BreakHandler)) {
     fprintf(stderr, "Failed to set BREAK handler.\n");
-    CleanExit(10);
+    _CleanExit(10);
   }
 #else /* LATTICE */
-  if ((int)signal(SIGINT, BreakHandler) == -1) {
+  if ((int)signal(SIGINT, _BreakHandler) == -1) {
     perror("Failed to set BREAK handler.");
-    CleanExit(10);
+    _CleanExit(10);
   }
 #endif /* else LATTICE */
 
-  if(CursesType == ANSI_CURSES) {
-    ifh = Input();
-    if(CursesFlags & CFLAG_CBREAK)
-      RawMode(ifh);
+  if(_CursesType == ANSI_CURSES) {
+    _ifh = Input();
+    if(_CursesFlags & CFLAG_CBREAK)
+      _RawMode(_ifh);
+    setupterm();                /* get the capability strings ready */
   }
   return OK;
 }

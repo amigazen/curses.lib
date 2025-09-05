@@ -37,17 +37,21 @@
  * Revision History
  * ================
  *
- * $Log:	beep.c,v $
- * Revision 1.2  92/06/10  23:44:19  sie
+ * $Log: beep.c,v $
+ * Revision 1.3  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.2  1992/06/10  23:44:19  sie
  * Added serial support.
- * 
+ *
  * Revision 1.1  91/09/07  11:39:58  sie
  * Initial revision
  * 
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/beep.c,v 1.2 92/06/10 23:44:19 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/beep.c,v 1.3 1993/05/17 23:33:10 sie Exp $";
 
 #include <fcntl.h>
 #include "acurses.h"
@@ -60,13 +64,13 @@ beep(void)
   ULONG device;
   BYTE *sound_data;
 
-  if(!(CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
+  if(!(_CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
     return ERR;
   
-  if(CursesType == CUST_CURSES) {
+  if(_CursesType == CUST_CURSES) {
     AIOptr = (struct IOAudio *) AllocMem(sizeof(struct IOAudio), MEMF_CHIP|MEMF_PUBLIC);
     if(!AIOptr)
-      CleanExit(1);
+      _CleanExit(1);
     
     port = (struct MsgPort *)CreatePort(0, 0);
     if(!port) {
@@ -114,7 +118,6 @@ beep(void)
     DeletePort(port);
     CloseDevice((struct IORequest *)AIOptr);
     FreeMem((APTR)AIOptr, sizeof(struct IOAudio));
-  } else if(CursesType == ANSI_CURSES) {
-    write(1, "\007", 1);
-  }
+  } else
+    fputc(BELL, stdout);
 }

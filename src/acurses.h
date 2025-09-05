@@ -20,7 +20,14 @@
  * THAT MAY RESULT FROM ITS USE.
  *
  *
- * $Log:	acurses.h,v $
+ * $Log: acurses.h,v $
+ * Revision 1.10  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.9  1992/12/25  22:16:55  sie
+ * GNU port.
+ *
  * Revision 1.8  92/06/10  23:43:32  sie
  * Added serial support.
  * 
@@ -51,19 +58,23 @@
 
 #include <intuition/intuition.h>
 #include <intuition/screens.h>
+#include <libraries/dos.h>
 #include <sys/types.h>
 #include <exec/types.h>
 #include <exec/io.h>
 #include <exec/memory.h>
 #include <devices/audio.h>
 
+#ifdef LATTICE
 #include <proto/exec.h>
 #include <proto/intuition.h>
 #include <proto/graphics.h>
-#include <stdlib.h>
 #include <dos.h>
 #include <proto/console.h>
 #include <proto/dos.h>
+#endif /* LATTICE */
+
+#include <stdlib.h>
 #include <string.h>
 #include "curses.h"
 
@@ -75,7 +86,9 @@
 #define max(a,b) ((a)>(b)?(a):(b))
 #endif
 
-  
+/*
+ * Genral stuff.
+ */
 #define MAXTEXTLEN     80	/* Max text to an output call */
 #define SOUNDLENGTH     2	/* Number of bytes in the sound wave */
 #define CAPSMASK     0x07	/* leftshift | rightshift | capslock */
@@ -84,17 +97,17 @@
 #define MAXCOLS        80	/* No overscan yet */
 #define TABSIZE         8	/* distance between tab stops */
 #define ANSIBUFSIZ     32	/* buffers for building ANSI sequences */
+#define CAP_LEN         2       /* length of capability name strings */
+
 /*
  * Type of curses
  */
-
 #define CUST_CURSES    0	/* Use custom screen (default) */
 #define ANSI_CURSES    1	/* Use ANSI codes to work on serial lines */
 
 /*
  *    characters
  */
-  
 #define BS            0x08	/* Backspace */
 #define CR            0x0d	/* Carriage return */
 #define ESC           0x1b	/* Escape */
@@ -102,7 +115,6 @@
 /*
  *    My Flags. These are global to all windows, not window specific.
  */
-
 #define CFLAG_CURSOR    0001	/* T=Cursor on, F=Cursor off. */
 #define CFLAG_CBREAK    0002	/* T=cbreak mode, F=nocbreak mode */
 #define CFLAG_NLCR      0004	/* T=nl to cr mapping, F=no mapping */
@@ -113,7 +125,6 @@
 /*
  *    WINDOW flags, these are specific to each window.
  */
-
 #define CWF_MOVED    0001	/* move() has been done on this window */
 
 /*
@@ -128,6 +139,22 @@
 #define SCROLL_DOWN  2
 
 /*
+ * Termcap stuff
+ */
+#define DFLT_TERMCAP "s:termcap"
+#define LINE_LEN     1024       /* max line length in termcap file */
+#define MAX_CAPS      128       /* maximum number of capabilities */
+
+#define BELL         0x07
+#define BS           0x08
+#define TAB          0x09
+#define NL           0x0a
+#define FF           0x0c
+#define CR           0x0d
+#define ESC          0x1b
+
+
+/*
  *    Simple implementation of wnoutrefresh() and doupdate()
  */
 
@@ -140,36 +167,50 @@ struct RefreshElement {
 /*
  * Externals in _data.c
  */
-extern unsigned char CursesFlags;
-extern int CursesType;
-extern unsigned char GetchNChars, GetchBufPos;
-extern short CursorCol, CursorLine, LCursorLine, LCursorCol;
-extern struct WindowState *HeadWindowList;
-extern struct RefreshElement *HeadRefreshList;
-extern struct RastPort *RPort;
-extern struct ViewPort *VPort;
+extern unsigned char _CursesFlags;
+extern int _CursesType;
+extern unsigned char _GetchNChars, _GetchBufPos;
+extern short _CursorCol, _CursorLine, _LCursorLine, _LCursorCol;
+extern struct RefreshElement *_HeadRefreshList;
+extern struct RastPort *_RPort;
+extern struct ViewPort *_VPort;
 extern struct IntuitionBase *IntuitionBase;
 extern struct GfxBase *GfxBase;
 extern struct IOStdReq ioreq;
-extern struct Screen *CursesScreen;
-extern struct Window *CursesWindow;
-extern int FontHeight, FontWidth, FontBase;
-extern struct FileHandle *ifh;
+extern struct Screen *_CursesScreen;
+extern struct Window *_CursesWindow;
+extern struct MsgPort *_CursesMsgPort;
+extern int _FontHeight, _FontWidth, _FontBase;
+extern BPTR _ifh;
+extern char *__area;
+extern char *__capary[];
+extern int __no_caps;
+
+extern char *_clstr;
+extern char *_cmstr;
 
 
 /*
  * Prototypes.
  */
-
-void DoEcho(WINDOW *, char);
-int Scroll(WINDOW *, int, int, int);
-void CleanExit(int);
-void ZapCursor(void);
-void DrawCursor(void);
-void ToggleCursor(int, int);
-void CleanUp(void);
+void _DoEcho(WINDOW *, char);
+int _Scroll(WINDOW *, int, int, int);
+void _CleanExit(int);
+void _ZapCursor(void);
+void _DrawCursor(void);
+void _ToggleCursor(int, int);
+void _CleanUp(void);
 /* Prototypes for functions defined in _ansi.c */
-void ANSIClear(void);
-void ANSIMove(int line, int col);
-void ANSIFlash(void);
-void ANSIClearRect(int line, int col, int height, int width);
+void _ANSIInit(void);
+void _ANSIClear(void);
+void _ANSIMove(int line,
+              int col);
+void _ANSIFlash(void);
+void _ANSIClearRect(int line,
+                   int col,
+                   int height,
+                   int width);
+long _RawMode(BPTR afh);
+long _CanonMode(BPTR afh);
+WINDOW *_CreatWindow(int NLines, int NCols, int StartLine, int StartCol, WINDOW *Orig);
+

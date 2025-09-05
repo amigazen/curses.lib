@@ -37,21 +37,25 @@
  * Revision History
  * ================
  *
- * $Log:	wmove.c,v $
- * Revision 1.1  91/09/07  11:51:45  sie
+ * $Log: wmove.c,v $
+ * Revision 1.2  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.1  1991/09/07  11:51:45  sie
  * Initial revision
- * 
+ *
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/wmove.c,v 1.1 91/09/07 11:51:45 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wmove.c,v 1.2 1993/05/17 23:33:10 sie Exp $";
 
 #include "acurses.h"
 
 
 wmove(WINDOW *WinPtr, short int Line, short int Col)
 {
-  if(!(CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
+  if(!WinPtr)
     return ERR;
   
   if(Line<0 || Line>WinPtr->_maxy)

@@ -37,26 +37,30 @@
  * Revision History
  * ================
  *
- * $Log:	cbreak.c,v $
- * Revision 1.2  92/06/10  23:44:30  sie
+ * $Log: cbreak.c,v $
+ * Revision 1.3  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.2  1992/06/10  23:44:30  sie
  * Added serial support.
- * 
+ *
  * Revision 1.1  91/09/07  11:40:16  sie
  * Initial revision
  * 
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/cbreak.c,v 1.2 92/06/10 23:44:30 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/cbreak.c,v 1.3 1993/05/17 23:33:10 sie Exp $";
 
 #include "acurses.h"
 
 
 cbreak(void)
 {
-  if(CursesType == ANSI_CURSES && ifh)
-    RawMode(ifh);
+  if(_CursesType == ANSI_CURSES && _ifh)
+    _RawMode(_ifh);
   
-  CursesFlags |= CFLAG_CBREAK;
+  _CursesFlags |= CFLAG_CBREAK;
   return OK;
 }

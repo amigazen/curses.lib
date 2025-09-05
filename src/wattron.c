@@ -37,10 +37,14 @@
  * Revision History
  * ================
  *
- * $Log:	wattron.c,v $
- * Revision 1.3  92/06/10  23:44:56  sie
+ * $Log: wattron.c,v $
+ * Revision 1.4  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.3  1992/06/10  23:44:56  sie
  * Added serial support.
- * 
+ *
  * Revision 1.2  91/12/28  22:45:29  sie
  * changed attrs to UBYTE from short + some tidying up.
  * 
@@ -50,7 +54,7 @@
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/wattron.c,v 1.3 92/06/10 23:44:56 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wattron.c,v 1.4 1993/05/17 23:33:10 sie Exp $";
 
 #include "acurses.h"
 
@@ -58,7 +62,7 @@ static char *rcsid = "$Header: SRC:lib/curses/src/RCS/wattron.c,v 1.3 92/06/10 2
 
 wattron(WINDOW *WinPtr, UBYTE attr)
 {
-  if(!(CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
+  if(!WinPtr)
     return ERR;
   
   /* If attributes contain a colour change then mask off old colour */

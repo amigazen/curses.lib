@@ -37,14 +37,14 @@
  * Revision History
  * ================
  *
- * $Log:	fixterm.c,v $
- * Revision 1.1  91/09/07  11:41:41  sie
+ * $Log: fixterm.c,v $
+ * Revision 1.1  1991/09/07  11:41:41  sie
  * Initial revision
- * 
+ *
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/fixterm.c,v 1.1 91/09/07 11:41:41 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/fixterm.c,v 1.1 1991/09/07 11:41:41 sie Exp $";
 
 #include "acurses.h"
 

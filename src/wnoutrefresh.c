@@ -37,17 +37,21 @@
  * Revision History
  * ================
  *
- * $Log:	wnoutrefresh.c,v $
- * Revision 1.2  92/06/10  23:45:03  sie
+ * $Log: wnoutrefresh.c,v $
+ * Revision 1.3  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.2  1992/06/10  23:45:03  sie
  * Added serial support.
- * 
+ *
  * Revision 1.1  91/09/07  11:51:53  sie
  * Initial revision
  * 
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/wnoutrefresh.c,v 1.2 92/06/10 23:45:03 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wnoutrefresh.c,v 1.3 1993/05/17 23:33:10 sie Exp $";
 
 #include <stdlib.h>
 #include "acurses.h"
@@ -56,7 +60,7 @@ wnoutrefresh(WINDOW *WinPtr)
 {
   struct RefreshElement *NewRefEl;
   
-  if(!(CursesFlags & CFLAG_INITSCR))
+  if(!(_CursesFlags & CFLAG_INITSCR))
     return ERR;
   
   if(!(NewRefEl = (struct RefreshElement *)
@@ -68,7 +72,7 @@ wnoutrefresh(WINDOW *WinPtr)
   NewRefEl->WinPtr = WinPtr;
   
   /* Add to start of refresh list */
-  if(HeadRefreshList)
-    NewRefEl->Next = HeadRefreshList;
-  HeadRefreshList = NewRefEl;
+  if(_HeadRefreshList)
+    NewRefEl->Next = _HeadRefreshList;
+  _HeadRefreshList = NewRefEl;
 }

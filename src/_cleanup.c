@@ -37,28 +37,31 @@
  * Revision History
  * ================
  *
- * $Log:	_cleanup.c,v $
- * Revision 1.1  91/09/07  11:52:37  sie
+ * $Log: _cleanup.c,v $
+ * Revision 1.2  1993/05/17  23:29:20  sie
+ * Underscores added to names.
+ *
+ * Revision 1.1  1991/09/07  11:52:37  sie
  * Initial revision
- * 
+ *
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/_cleanup.c,v 1.1 91/09/07 11:52:37 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/_cleanup.c,v 1.2 1993/05/17 23:29:20 sie Exp $";
 
 #include "acurses.h"
 
 
 void
-CleanUp(void)
+_CleanUp(void)
 {
-  if(CursesWindow) {
-    CloseWindow(CursesWindow);
-    CursesWindow = NULL;
+  if(_CursesWindow) {
+    CloseWindow(_CursesWindow);
+    _CursesWindow = NULL;
   }
-  if(CursesScreen) {
-    CloseScreen(CursesScreen);
-    CursesScreen = NULL;
+  if(_CursesScreen) {
+    CloseScreen(_CursesScreen);
+    _CursesScreen = NULL;
   }
   if(GfxBase) {
     CloseLibrary((struct Library *)GfxBase);

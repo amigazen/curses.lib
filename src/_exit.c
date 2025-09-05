@@ -37,21 +37,25 @@
  * Revision History
  * ================
  *
- * $Log:	_exit.c,v $
- * Revision 1.1  91/09/07  11:53:11  sie
+ * $Log: _exit.c,v $
+ * Revision 1.2  1993/05/17  23:30:51  sie
+ * Underscores added to names.
+ * ,
+ *
+ * Revision 1.1  1991/09/07  11:53:11  sie
  * Initial revision
- * 
+ *
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/_exit.c,v 1.1 91/09/07 11:53:11 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/_exit.c,v 1.2 1993/05/17 23:30:51 sie Exp $";
 
 #include "acurses.h"
 
 
 void
-CleanExit(int RetCode)
+_CleanExit(int RetCode)
 {
-  CleanUp();
+  _CleanUp();
   exit(RetCode);
 }

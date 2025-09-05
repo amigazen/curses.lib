@@ -37,14 +37,14 @@
  * Revision History
  * ================
  *
- * $Log:	box.c,v $
- * Revision 1.1  91/09/07  11:40:10  sie
+ * $Log: box.c,v $
+ * Revision 1.1  1991/09/07  11:40:10  sie
  * Initial revision
- * 
+ *
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/box.c,v 1.1 91/09/07 11:40:10 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/box.c,v 1.1 1991/09/07 11:40:10 sie Exp $";
 
 #include "acurses.h"
 

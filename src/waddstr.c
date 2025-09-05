@@ -37,10 +37,14 @@
  * Revision History
  * ================
  *
- * $Log:	waddstr.c,v $
- * Revision 1.6  92/06/21  01:12:54  sie
+ * $Log: waddstr.c,v $
+ * Revision 1.7  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.6  1992/06/21  01:12:54  sie
  * Indentation.
- * 
+ *
  * Revision 1.5  92/06/10  23:44:49  sie
  * Added serial support.
  * 
@@ -60,7 +64,7 @@
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/waddstr.c,v 1.6 92/06/21 01:12:54 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/waddstr.c,v 1.7 1993/05/17 23:33:10 sie Exp $";
 
 #include "acurses.h"
 
@@ -104,7 +108,7 @@ waddstr(WINDOW *WinPtr, char *Str)
 	  WinPtr->ParentWin->LnArry[WinPtr->_cury+WinPtr->_begy].StartCol = min(WinPtr->ParentWin->LnArry[WinPtr->_cury+WinPtr->_begy].StartCol, WinPtr->_curx+WinPtr->_begx);
 	}
       }
-    break;
+      break;
     default:
       WinPtr->LnArry[WinPtr->_cury].Line[WinPtr->_curx] = *Str;
       WinPtr->LnArry[WinPtr->_cury].ATTRS[WinPtr->_curx] = WinPtr->_attrs;
@@ -121,7 +125,7 @@ waddstr(WINDOW *WinPtr, char *Str)
 	  WinPtr->_cury = WinPtr->ScrollBot;
 	}
       }
-    if(WinPtr->_cury > WinPtr->_maxy)
+      if(WinPtr->_cury > WinPtr->_maxy)
 	WinPtr->_cury = WinPtr->_maxy;
       if(*(Str + 1)) {  /* If there is more then touch this line too */
 	WinPtr->LnArry[WinPtr->_cury].Touched = TRUE;
@@ -133,8 +137,8 @@ waddstr(WINDOW *WinPtr, char *Str)
 	}
       }
     } /* if gone off end of line */
-  Str++;
-} /* while (*Str) */
+    Str++;
+  } /* while (*Str) */
   WinPtr->LnArry[WinPtr->_cury].EndCol = max(WinPtr->LnArry[WinPtr->_cury].EndCol, WinPtr->_curx - 1);
   if(WinPtr->ParentWin)
     WinPtr->ParentWin->LnArry[WinPtr->_cury+WinPtr->_begy].EndCol = max(WinPtr->ParentWin->LnArry[WinPtr->_cury+WinPtr->_begy].EndCol, WinPtr->_curx+WinPtr->_begx-1);

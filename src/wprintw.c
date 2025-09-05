@@ -37,14 +37,14 @@
  * Revision History
  * ================
  *
- * $Log:	wprintw.c,v $
- * Revision 1.1  91/09/07  11:52:03  sie
+ * $Log: wprintw.c,v $
+ * Revision 1.1  1991/09/07  11:52:03  sie
  * Initial revision
- * 
+ *
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/wprintw.c,v 1.1 91/09/07 11:52:03 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wprintw.c,v 1.1 1991/09/07 11:52:03 sie Exp $";
 
 #include "acurses.h"
 #include <stdarg.h>

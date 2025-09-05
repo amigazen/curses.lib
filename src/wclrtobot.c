@@ -37,18 +37,22 @@
  * Revision History
  * ================
  *
- * $Log:	wclrtobot.c,v $
- * Revision 1.2  92/06/23  22:14:38  sie
+ * $Log: wclrtobot.c,v $
+ * Revision 1.3  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.2  1992/06/23  22:14:38  sie
  * Changed to alter the window structure directly rather than
  * using calls to other curses functions.
- * 
+ *
  * Revision 1.1  91/09/07  11:49:38  sie
  * Initial revision
  * 
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/wclrtobot.c,v 1.2 92/06/23 22:14:38 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wclrtobot.c,v 1.3 1993/05/17 23:33:10 sie Exp $";
 
 #include "acurses.h"
 
@@ -57,7 +61,7 @@ wclrtobot(WINDOW *WinPtr)
 {
   int line;
   
-  if(!(CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
+  if(!(_CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
     return ERR;
   /* do the first line */
   memset(&(WinPtr->LnArry[WinPtr->_cury].Line[WinPtr->_curx]),

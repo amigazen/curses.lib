@@ -8,6 +8,7 @@
  * Date     : Thursday 28th May 1992.
  *
  * Desc     : ANSI support for curses.
+ *            Implemented using termcap support.
  *
  *
  * THIS CODE IS NOT PUBLIC DOMAIN
@@ -37,7 +38,17 @@
  * Revision History
  * ================
  *
- * $Log:	_ansi.c,v $
+ * $Log: _ansi.c,v $
+ * Revision 1.4  1994/02/21  22:20:22  sie
+ * removed _ANSIInit() as it is now replaced by setupterm().
+ *
+ * Revision 1.3  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.2  1992/12/25  23:43:43  sie
+ * GNU C port
+ *
  * Revision 1.1  92/06/10  23:46:04  sie
  * Initial revision
  * 
@@ -50,39 +61,43 @@
 #include <fcntl.h>
 #include "acurses.h"
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/_ansi.c,v 1.1 92/06/10 23:46:04 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/_ansi.c,v 1.4 1994/02/21 22:20:22 sie Exp $";
 
 
-void
-ANSIClear()
+static int
+_myputc(char c)
 {
-  char *clrstr = "\033[H\033[J";
-  write(1, clrstr, 6);
+  fputc(c, stdout);
+  fflush(stdout);
+  return 0;
 }
 
 void
-ANSIMove(int line, int col)
+_ANSIClear()
 {
-  char buf[30];
-  
-  sprintf(buf, "\033[%d;%dH", line+1, col+1);
-  write(1, buf, strlen(buf));
+  tputs(_clstr, 1, _myputc);
 }
 
 void
-ANSIFlash()
+_ANSIMove(int line, int col)
 {
-  write(1, "\007", 1);
+  tputs(tgoto(_cmstr, col, line), 1, _myputc);
 }
 
 void
-ANSIClearRect(int line, int col, int height, int width)
+_ANSIFlash()
+{
+  fputc(BELL, stdout);
+}
+
+void
+_ANSIClearRect(int line, int col, int height, int width)
 {
   char buf[BUFSIZ], *ptr;
   int i;
   
   if(!line && !col && height>=LINES-1 && width>=COLS-1) {
-    ANSIClear();
+    _ANSIClear();
     return;
   }
   if(!(ptr = malloc(width+1)))	/* 1 for the NULL */
@@ -108,49 +123,6 @@ ANSIClearRect(int line, int col, int height, int width)
  *
  */
 
-/*
- * Function RawMode() - Convert the specified File Handle to 'RawMode' mode. This
- * only works on TTY's and essentially keeps DOS from translating keys for
- * you.
- */
-
-long
-RawMode(BPTR afh)
-{
-    struct MsgPort *mp;		/* The File Handle message port */
-    long            Arg[1], res;
-
-    mp = ((struct FileHandle *) (BADDR(afh)))->fh_Type;
-    Arg[0] = -1L;
-    res = send_packet(mp, ACTION_SCREEN_MODE, Arg, 1);
-    if (res == 0) {
-	errno = ENXIO;
-	return (-1);
-    }
-    return (0);
-}
-
-/*
- * Function - CanonMode() this function returns the designate file pointer to
- * it's normal, wait for a <CR> mode. This is exactly like RawMode() except that
- * it sends a 0 to the console to make it back into a CON: from a RAWMODE: 
- */
-
-long
-CanonMode(BPTR afh)
-{
-    struct MsgPort *mp;		/* The File Handle message port */
-    long            Arg[1], res;
-
-    mp = ((struct FileHandle *) (BADDR(afh)))->fh_Type;
-    Arg[0] = 0L;
-    res = send_packet(mp, ACTION_SCREEN_MODE, Arg, 1);
-    if (res == 0) {
-	errno = ENXIO;
-	return (-1);
-    }
-    return (0);
-}
 
 /*
  * send_packet() - written by Phil Lindsay, Carolyn Scheppner, and Andy
@@ -159,13 +131,7 @@ CanonMode(BPTR afh)
  */
 
 static long
-send_packet(pid, action, args, nargs)
-    struct MsgPort *pid;	/* process indentifier ... (handlers message
-				 * port ) */
-    long            action,	/* packet type ... (what you want handler to
-				 * do )   */
-                    args[],	/* a pointer to a argument list */
-                    nargs;	/* number of arguments in list  */
+_send_packet(struct MsgPort *pid, long action, long args[], long nargs)
 {
     struct MsgPort *replyport;
     struct StandardPacket *packet;
@@ -194,7 +160,7 @@ send_packet(pid, action, args, nargs)
     for (count = 0; count < nargs; count++)
 	pargs[count] = args[count];
 
-    PutMsg(pid, packet);	/* send packet */
+    PutMsg(pid, (struct Message *)packet);	/* send packet */
 
     WaitPort(replyport);
     GetMsg(replyport);
@@ -205,4 +171,48 @@ send_packet(pid, action, args, nargs)
     DeletePort(replyport);
 
     return (res1);
+}
+
+/*
+ * Function RawMode() - Convert the specified File Handle to 'RawMode' mode. This
+ * only works on TTY's and essentially keeps DOS from translating keys for
+ * you.
+ */
+
+long
+_RawMode(BPTR afh)
+{
+    struct MsgPort *mp;		/* The File Handle message port */
+    long            Arg[1], res;
+
+    mp = ((struct FileHandle *) (BADDR(afh)))->fh_Type;
+    Arg[0] = -1L;
+    res = _send_packet(mp, ACTION_SCREEN_MODE, Arg, 1);
+    if (res == 0) {
+	errno = ENXIO;
+	return (-1);
+    }
+    return (0);
+}
+
+/*
+ * Function - CanonMode() this function returns the designate file pointer to
+ * it's normal, wait for a <CR> mode. This is exactly like RawMode() except that
+ * it sends a 0 to the console to make it back into a CON: from a RAWMODE: 
+ */
+
+long
+_CanonMode(BPTR afh)
+{
+    struct MsgPort *mp;		/* The File Handle message port */
+    long            Arg[1], res;
+
+    mp = ((struct FileHandle *) (BADDR(afh)))->fh_Type;
+    Arg[0] = 0L;
+    res = _send_packet(mp, ACTION_SCREEN_MODE, Arg, 1);
+    if (res == 0) {
+	errno = ENXIO;
+	return (-1);
+    }
+    return (0);
 }

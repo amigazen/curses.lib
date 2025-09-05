@@ -37,20 +37,24 @@
  * Revision History
  * ================
  *
- * $Log:	noecho.c,v $
- * Revision 1.1  91/09/07  11:45:42  sie
+ * $Log: noecho.c,v $
+ * Revision 1.2  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.1  1991/09/07  11:45:42  sie
  * Initial revision
- * 
+ *
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/noecho.c,v 1.1 91/09/07 11:45:42 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/noecho.c,v 1.2 1993/05/17 23:33:10 sie Exp $";
 
 #include "acurses.h"
 
 
 noecho(void)
 {
-  CursesFlags &= ~CFLAG_ECHO;
+  _CursesFlags &= ~CFLAG_ECHO;
   return OK;
 }

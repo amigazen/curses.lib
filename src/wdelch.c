@@ -38,18 +38,18 @@
  * Revision History
  * ================
  *
- * $Log:	wdelch.c,v $
- * Revision 1.2  91/12/28  14:01:16  sie
+ * $Log: wdelch.c,v $
+ * Revision 1.2  1991/12/28  14:01:16  sie
  * Removed WinStat.
  * Renamed LineElement as lnel.
- * 
+ *
  * Revision 1.1  91/09/07  11:49:51  sie
  * Initial revision
  * 
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/wdelch.c,v 1.2 91/12/28 14:01:16 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wdelch.c,v 1.2 1991/12/28 14:01:16 sie Exp $";
 
 #include "acurses.h"
 

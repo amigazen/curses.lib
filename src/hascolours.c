@@ -37,17 +37,17 @@
  * Revision History
  * ================
  *
- * $Log:	hascolours.c,v $
- * Revision 1.2  91/09/28  18:32:54  sie
+ * $Log: hascolours.c,v $
+ * Revision 1.2  1991/09/28  18:32:54  sie
  * DEPTH instead on NPLANES.
- * 
+ *
  * Revision 1.1  91/09/07  11:42:52  sie
  * Initial revision
  * 
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/hascolours.c,v 1.2 91/09/28 18:32:54 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/hascolours.c,v 1.2 1991/09/28 18:32:54 sie Exp $";
 
 #include "acurses.h"
 

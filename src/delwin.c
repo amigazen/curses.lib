@@ -37,10 +37,14 @@
  * Revision History
  * ================
  *
- * $Log:	delwin.c,v $
- * Revision 1.5  92/06/10  23:44:34  sie
+ * $Log: delwin.c,v $
+ * Revision 1.6  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.5  1992/06/10  23:44:34  sie
  * Added serial support.
- * 
+ *
  * Revision 1.4  91/12/30  10:30:55  sie
  * Removed LRLine and LRATTRS.
  * The speed increase caused by them was too insignificant.
@@ -59,7 +63,7 @@
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/delwin.c,v 1.5 92/06/10 23:44:34 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/delwin.c,v 1.6 1993/05/17 23:33:10 sie Exp $";
 
 #include <stdlib.h>
 #include "acurses.h"
@@ -69,7 +73,7 @@ delwin(WINDOW *WinPtr)
 {
   int LineNo;
   
-  if(!(CursesFlags & CFLAG_INITSCR))
+  if(!(_CursesFlags & CFLAG_INITSCR))
     return ERR;
   
   if(!WinPtr->ParentWin) {

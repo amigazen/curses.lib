@@ -1,20 +1,23 @@
-            AMIGA CURSES PACKAGE V2.00
-            ==========================
+                AMIGA CURSES PACKAGE
+                ====================
 
-Author : Simon John Raybould    (sie@fulcrum.co.uk)
-Date   : 20th June 1992
+Author   : Simon John Raybould    (sie@fulcrum.co.uk)
+Mod Date : 14th August 1992
 
 
 Version
 =======
 
-$Id: curses.doc,v 1.3 92/06/29 22:33:08 sie Exp $
+$Id: curses.doc,v 1.4 1993/06/12 20:24:20 sie Exp $
 
 
 Modification History
 ====================
 
-$Log:	curses.doc,v $
+$Log: curses.doc,v $
+Revision 1.4  1993/06/12  20:24:20  sie
+Minor updates
+
 Revision 1.3  92/06/29  22:33:08  sie
 Added some more function descriptions.
 
@@ -25,6 +28,12 @@ Documentation for amiga curses library.
 
 Description
 ===========
+
+Curses is a screen manipulation package that is used quite extensively
+in the UNIX environment.
+
+I wrote this because I had several UNIX programs that used curses that
+I wanted to port to the Amiga. 
 
 Version 2.00 and above now support ANSI sequences to allow curses
 applications to be executes through the serial port to a terminal or
@@ -38,7 +47,13 @@ and white). To enable 8 colours, call start_color() before initscr().
 has_colors() will return TRUE if start_color() has been called else it
 will return FALSE.
 
+If you require further documentation to that provided here then I
+would recommend:
 
+"Programming with curses" by John Strang ISBN 0-937175-02-1
+published by O'Reilly & Associates, Inc.
+
+This book is very good and very cheap (10 pound in the UK).
 
 
 Short descriptions of functions provided

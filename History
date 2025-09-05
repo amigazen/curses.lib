@@ -164,3 +164,29 @@ Changes
 
     4. Added ANSI support so that curses may be run over the serial line
        or over a modem.
+
+
+Updates from V2.00 to V2.10
+===========================
+
+    1. Fixed bug that causes attributes to be trashed when scroll was
+       called.
+
+    2. Environment variables LINES and COLS were not working properly.
+
+    3. Fixed bug in refresh which caused background windows to have lines
+       erased by smaller windows over the top of them.
+
+    4. Fixed bug that caused WB2 fonts to not work correctly.
+
+    5. Added dummy function for gettmode().
+
+    6. Added longname().
+
+    7. Added unctrl().
+
+    8. Added overlay() & overwrite().
+
+    9. Added setterm().
+
+   10. Added termcap/terminfo low level routines.

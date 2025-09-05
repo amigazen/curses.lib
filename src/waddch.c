@@ -37,14 +37,14 @@
  * Revision History
  * ================
  *
- * $Log:	waddch.c,v $
- * Revision 1.1  91/09/07  11:48:54  sie
+ * $Log: waddch.c,v $
+ * Revision 1.1  1991/09/07  11:48:54  sie
  * Initial revision
- * 
+ *
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/waddch.c,v 1.1 91/09/07 11:48:54 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/waddch.c,v 1.1 1991/09/07 11:48:54 sie Exp $";
 
 #include "curses.h"
 

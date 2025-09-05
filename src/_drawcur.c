@@ -37,37 +37,41 @@
  * Revision History
  * ================
  *
- * $Log:	_drawcur.c,v $
- * Revision 1.2  92/06/10  23:45:14  sie
+ * $Log: _drawcur.c,v $
+ * Revision 1.3  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.2  1992/06/10  23:45:14  sie
  * Added serial support.
- * 
+ *
  * Revision 1.1  91/09/07  11:53:05  sie
  * Initial revision
  * 
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/_drawcur.c,v 1.2 92/06/10 23:45:14 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/_drawcur.c,v 1.3 1993/05/17 23:33:10 sie Exp $";
 
 #include "acurses.h"
 
 
 void
-DrawCursor(void)
+_DrawCursor(void)
 {
-  if(CursesType == ANSI_CURSES)
-    mvcur(LCursorLine, LCursorCol, CursorLine, CursorCol);
+  if(_CursesType == ANSI_CURSES)
+    mvcur(_LCursorLine, _LCursorCol, _CursorLine, _CursorCol);
   else {
     /* Draw cursor */
-    if(CursesFlags & CFLAG_CURSOR)
-      ToggleCursor(CursorLine, CursorCol);
+    if(_CursesFlags & CFLAG_CURSOR)
+      _ToggleCursor(_CursorLine, _CursorCol);
     
-    if(CursesFlags & CFLAG_CURSOR) {
-      LCursorCol = CursorCol;
-      LCursorLine = CursorLine;
+    if(_CursesFlags & CFLAG_CURSOR) {
+      _LCursorCol = _CursorCol;
+      _LCursorLine = _CursorLine;
     } else {
-      LCursorCol = -1;
-      LCursorLine = -1;
+      _LCursorCol = -1;
+      _LCursorLine = -1;
     }
   }
 }

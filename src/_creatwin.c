@@ -37,10 +37,13 @@
  * Revision History
  * ================
  *
- * $Log:	_creatwin.c,v $
- * Revision 1.6  92/06/10  23:45:07  sie
+ * $Log: _creatwin.c,v $
+ * Revision 1.7  1993/05/17  23:31:21  sie
+ * Underscores added to names.
+ *
+ * Revision 1.6  1992/06/10  23:45:07  sie
  * Added serial support.
- * 
+ *
  * Revision 1.5  91/12/30  10:30:22  sie
  * Removed LRLine and LRATTRS.
  * The speed increase caused by them was too insignificant.
@@ -62,14 +65,14 @@
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/_creatwin.c,v 1.6 92/06/10 23:45:07 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/_creatwin.c,v 1.7 1993/05/17 23:31:21 sie Exp $";
 
 #include <stdlib.h>
 #include "acurses.h"
 
 
 /* Orig is NULL and StartCol/Line are not used for newwin() calls */
-WINDOW *CreatWindow(int NLines, int NCols, int StartLine, int StartCol, WINDOW *Orig)
+WINDOW *_CreatWindow(int NLines, int NCols, int StartLine, int StartCol, WINDOW *Orig)
 {
   int Line;
   WINDOW *NewWinPtr;

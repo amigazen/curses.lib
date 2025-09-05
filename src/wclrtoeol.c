@@ -37,10 +37,14 @@
  * Revision History
  * ================
  *
- * $Log:	wclrtoeol.c,v $
- * Revision 1.3  92/06/23  22:14:06  sie
+ * $Log: wclrtoeol.c,v $
+ * Revision 1.4  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.3  1992/06/23  22:14:06  sie
  * Changed from a for loop to memset(), should be quicker.
- * 
+ *
  * Revision 1.2  92/06/21  01:13:20  sie
  * Now writes directly to the screen structure rather than
  * using waddstr and wmove.
@@ -51,14 +55,14 @@
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/wclrtoeol.c,v 1.3 92/06/23 22:14:06 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wclrtoeol.c,v 1.4 1993/05/17 23:33:10 sie Exp $";
 
 #include "acurses.h"
 
 
 wclrtoeol(WINDOW *WinPtr)
 {
-  if(!(CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
+  if(!(_CursesFlags & CFLAG_INITSCR)) /* Haven't called initscr() */
     return ERR;
 
   memset(&(WinPtr->LnArry[WinPtr->_cury].Line[WinPtr->_curx]),

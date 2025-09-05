@@ -37,7 +37,15 @@
  * Revision History
  * ================
  *
- * $Log:	_doecho.c,v $
+ * $Log: _doecho.c,v $
+ * Revision 1.6  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.5  1992/12/25  21:37:27  sie
+ * Fixed font calculations.
+ * Was previously hard coded for topaz 8.
+ *
  * Revision 1.4  92/06/10  23:45:10  sie
  * Added serial support.
  * 
@@ -55,12 +63,12 @@
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/_doecho.c,v 1.4 92/06/10 23:45:10 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/_doecho.c,v 1.6 1993/05/17 23:33:10 sie Exp $";
 
 #include "acurses.h"
 
 
-void DoEcho(WINDOW *WinPtr, char c)
+void _DoEcho(WINDOW *WinPtr, char c)
 {
   short x, y;
   char Buffer[ANSIBUFSIZ];
@@ -68,40 +76,41 @@ void DoEcho(WINDOW *WinPtr, char c)
   if(c == BS || c == CR)        /* Don't echo Backspace or Return */
     return;
 
-  if(CursesType == CUST_CURSES) {
-    x = CursorCol * 8;
-    y = 6 + CursorLine * 8;
-    ZapCursor();
-    SetDrMd(RPort, JAM2);
-    SetAPen(RPort, WinPtr->_attrs & A_CLRPART);
-    Move(RPort, x, y);
-    Text(RPort, &c, 1);
-    DrawCursor();
-  } else if(CursesType == ANSI_CURSES) {
-    ANSIMove(CursorLine, CursorCol);
-    if(WinPtr->LnArry[CursorLine].ATTRS[CursorCol] & A_ATRPART) {
-      sprintf(Buffer, "\033[0;%d;40m", WinPtr->LnArry[CursorLine].ATTRS[CursorCol] & A_CLRPART+30);
-      if(WinPtr->LnArry[CursorLine].ATTRS[CursorCol] & A_BOLD)
+  if(_CursesType == CUST_CURSES) {
+    x = _CursorCol * _FontWidth;
+    y = _FontBase + _CursorLine * _FontHeight;
+    _ZapCursor();
+    SetDrMd(_RPort, JAM2);
+    SetAPen(_RPort, WinPtr->_attrs & A_CLRPART);
+    Move(_RPort, x, y);
+    Text(_RPort, &c, 1);
+    _DrawCursor();
+  } else {
+    _ANSIMove(_CursorLine, _CursorCol);
+    if(WinPtr->LnArry[_CursorLine].ATTRS[_CursorCol] & A_ATRPART) {
+      sprintf(Buffer, "\033[0;%d;40m", WinPtr->LnArry[_CursorLine].ATTRS[_CursorCol] & A_CLRPART+30);
+      if(WinPtr->LnArry[_CursorLine].ATTRS[_CursorCol] & A_BOLD)
 	Buffer[2] = '1';
-      if(WinPtr->LnArry[CursorLine].ATTRS[CursorCol] & A_UNDERLINE)
+      if(WinPtr->LnArry[_CursorLine].ATTRS[_CursorCol] & A_UNDERLINE)
 	Buffer[2] = '4';
-      if(WinPtr->LnArry[CursorLine].ATTRS[CursorCol] & A_STANDOUT)
+      if(WinPtr->LnArry[_CursorLine].ATTRS[_CursorCol] & A_STANDOUT)
 	Buffer[2] = '7';
+      write(1, Buffer, strlen(Buffer));
     }
-    write(1, &c, 1);
-    if(WinPtr->LnArry[CursorLine].ATTRS[CursorCol] & A_ATRPART)
+    fputc(c, stdout);
+    if(WinPtr->LnArry[_CursorLine].ATTRS[_CursorCol] & A_ATRPART)
       write(1, "\033[0m", 4);
   }
   /* Update curscr */
   if(WinPtr != curscr) {
-    wmove(curscr, CursorLine, CursorCol);
+    wmove(curscr, _CursorLine, _CursorCol);
     waddch(curscr, c);
   }
   /* Update Line structure */
-  WinPtr->LnArry[CursorLine-WinPtr->_begy].Line[CursorCol-WinPtr->_begx] = c;
-  WinPtr->LnArry[CursorLine-WinPtr->_begy].ATTRS[CursorCol-WinPtr->_begx] = WinPtr->_attrs;
+  WinPtr->LnArry[_CursorLine-WinPtr->_begy].Line[_CursorCol-WinPtr->_begx] = c;
+  WinPtr->LnArry[_CursorLine-WinPtr->_begy].ATTRS[_CursorCol-WinPtr->_begx] = WinPtr->_attrs;
   /* Move current position one to the right */
   if(++WinPtr->_curx > WinPtr->_maxx)
     WinPtr->_curx = WinPtr->_maxx;
-  mvcur(CursorLine, CursorCol, CursorLine, CursorCol + 1);
+  mvcur(_CursorLine, _CursorCol, _CursorLine, _CursorCol + 1);
 }

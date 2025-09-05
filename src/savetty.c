@@ -37,14 +37,14 @@
  * Revision History
  * ================
  *
- * $Log:	savetty.c,v $
- * Revision 1.1  91/09/07  11:46:28  sie
+ * $Log: savetty.c,v $
+ * Revision 1.1  1991/09/07  11:46:28  sie
  * Initial revision
- * 
+ *
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/savetty.c,v 1.1 91/09/07 11:46:28 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/savetty.c,v 1.1 1991/09/07 11:46:28 sie Exp $";
 
 #include "acurses.h"
 

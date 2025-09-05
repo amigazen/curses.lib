@@ -37,11 +37,14 @@
  * Revision History
  * ================
  *
- * $Log:	werase.c,v $
- * Revision 1.3  91/12/30  10:31:21  sie
+ * $Log: werase.c,v $
+ * Revision 1.4  1993/05/17  23:28:16  sie
+ * Underscores added to names.
+ *
+ * Revision 1.3  1991/12/30  10:31:21  sie
  * Removed LRLine and LRATTRS.
  * The speed increase caused by them was too insignificant.
- * 
+ *
  * Revision 1.2  91/12/28  14:01:21  sie
  * Removed WinStat.
  * Renamed LineElement as lnel.
@@ -52,7 +55,7 @@
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/werase.c,v 1.3 91/12/30 10:31:21 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/werase.c,v 1.4 1993/05/17 23:28:16 sie Exp $";
 
 #include "acurses.h"
 
@@ -61,7 +64,7 @@ werase(WINDOW *WinPtr)
 {
   int Line;
   
-  if(!(CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
+  if(!(_CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
     return ERR;
   
   /* Blank screen image */

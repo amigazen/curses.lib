@@ -37,7 +37,14 @@
  * Revision History
  * ================
  *
- * $Log:	wrefresh.c,v $
+ * $Log: wrefresh.c,v $
+ * Revision 1.11  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.10  1992/12/25  23:39:56  sie
+ * GNU C port.
+ *
  * Revision 1.9  92/06/21  01:14:13  sie
  * Moved _clear=FALSE to after all lines have been refreshed.
  * 
@@ -70,12 +77,10 @@
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/wrefresh.c,v 1.9 92/06/21 01:14:13 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wrefresh.c,v 1.11 1993/05/17 23:33:10 sie Exp $";
 
 #include <exec/types.h>
 #include "acurses.h"
-#include <proto/graphics.h>
-#include <dos.h>
 #include <string.h>
 #include <fcntl.h>
 
@@ -83,7 +88,7 @@ static char *rcsid = "$Header: SRC:lib/curses/src/RCS/wrefresh.c,v 1.9 92/06/21 
 static void _optimise(WINDOW *winptr, int line)
 {
   int i;
-
+ 
   if(!winptr->LnArry[line].Touched)
     return;
 
@@ -107,8 +112,11 @@ static void _optimise(WINDOW *winptr, int line)
     if(winptr->LnArry[line].StartCol > winptr->LnArry[line].EndCol)
       break;
   }
-  if(winptr->LnArry[line].StartCol > winptr->LnArry[line].EndCol)
+  if(winptr->LnArry[line].StartCol > winptr->LnArry[line].EndCol) {
+    winptr->LnArry[line].StartCol = winptr->_maxx+1;
+    winptr->LnArry[line].EndCol = 0;
     winptr->LnArry[line].Touched = FALSE;
+  }
 }
 
 wrefresh(WINDOW *WinPtr)
@@ -121,25 +129,25 @@ wrefresh(WINDOW *WinPtr)
 
   if(WinPtr == curscr)
     clearok(WinPtr, TRUE);
-  ZapCursor();
+  _ZapCursor();
   /*
    *  It is possible for no printing since last refresh, but for
    *  a move to have been done...
    */
   if(WinPtr->_flags & CWF_MOVED) {
     WinPtr->_flags &= ~CWF_MOVED;
-    CursorLine = WinPtr->_cury + WinPtr->_begy;
-    CursorCol = WinPtr->_curx + WinPtr->_begx;
+    _CursorLine = WinPtr->_cury + WinPtr->_begy;
+    _CursorCol = WinPtr->_curx + WinPtr->_begx;
   }
   if(WinPtr->_clear) {
-    if(CursesType == CUST_CURSES) {
-      SetAPen(RPort, 0);
-      SetDrMd(RPort, JAM2);
-      RectFill(RPort, WinPtr->_begx * FontWidth, WinPtr->_begy * FontHeight,
-	       ((WinPtr->_begx + WinPtr->_maxx) * FontWidth) + (FontWidth-1),
-	       ((WinPtr->_begy + WinPtr->_maxy) * FontHeight + (FontHeight-1)));
-    } else if(CursesType == ANSI_CURSES) {
-      ANSIClearRect(WinPtr->_begy, WinPtr->_begx, WinPtr->_maxy+1, WinPtr->_maxx+1);
+    if(_CursesType == CUST_CURSES) {
+      SetAPen(_RPort, 0);
+      SetDrMd(_RPort, JAM2);
+      RectFill(_RPort, WinPtr->_begx * _FontWidth, WinPtr->_begy * _FontHeight,
+	       ((WinPtr->_begx + WinPtr->_maxx) * _FontWidth) + (_FontWidth-1),
+	       ((WinPtr->_begy + WinPtr->_maxy) * _FontHeight + (_FontHeight-1)));
+    } else if(_CursesType == ANSI_CURSES) {
+      _ANSIClearRect(WinPtr->_begy, WinPtr->_begx, WinPtr->_maxy+1, WinPtr->_maxx+1);
     }
     /* update curscr */
     for(i=0; i<=WinPtr->_maxy; i++) {
@@ -149,12 +157,14 @@ wrefresh(WINDOW *WinPtr)
 	     WinPtr->_maxx+1);
     }
   }
-  if(CursesFlags & CFLAG_CURSOR) {
-    CursorLine = WinPtr->_cury + WinPtr->_begy;
-    CursorCol = WinPtr->_curx + WinPtr->_begx;
+  if(_CursesFlags & CFLAG_CURSOR) {
+    _CursorLine = WinPtr->_cury + WinPtr->_begy;
+    _CursorCol = WinPtr->_curx + WinPtr->_begx;
   }
   for(Line=0; Line<WinPtr->NLines; Line++) {
+#ifdef LATTICE
     chkabort(); /* Check if INTR */
+#endif
     /* if we have cleared the screen then must refresh everything */
     if(WinPtr->_clear) {
       WinPtr->LnArry[Line].Touched = TRUE;
@@ -167,23 +177,23 @@ wrefresh(WINDOW *WinPtr)
       for(i=j + 1; i<=WinPtr->LnArry[Line].EndCol; i++) {
 	if(WinPtr->LnArry[Line].ATTRS[i] != WinPtr->LnArry[Line].ATTRS[j]) {
 	  /* Print what we've got */
-	  if(CursesType == CUST_CURSES) {
-	    SetAPen(RPort, WinPtr->LnArry[Line].ATTRS[j] & A_CLRPART);
+	  if(_CursesType == CUST_CURSES) {
+	    SetAPen(_RPort, WinPtr->LnArry[Line].ATTRS[j] & A_CLRPART);
 	    if(WinPtr->LnArry[Line].ATTRS[j] & (A_REVERSE | A_STANDOUT))
-	      SetDrMd(RPort, JAM2|INVERSVID);
+	      SetDrMd(_RPort, JAM2|INVERSVID);
 	    else
-	      SetDrMd(RPort, JAM2);
+	      SetDrMd(_RPort, JAM2);
 	    style = FS_NORMAL;
 	    if(WinPtr->LnArry[Line].ATTRS[j] & A_BOLD)
 	      style |= FSF_BOLD;
 	    if(WinPtr->LnArry[Line].ATTRS[j] & A_UNDERLINE)
 	      style |= FSF_UNDERLINED;
-	    SetSoftStyle(RPort, style, ~0L);
-	    Move(RPort, (j+WinPtr->_begx) * FontWidth,
-		 FontBase + (Line+WinPtr->_begy) * FontHeight);
-	    Text(RPort, &WinPtr->LnArry[Line].Line[j], i-j);
-	  } else if(CursesType == ANSI_CURSES) {
-	    ANSIMove(Line+WinPtr->_begy, j+WinPtr->_begx);
+	    SetSoftStyle(_RPort, style, ~0L);
+	    Move(_RPort, (j+WinPtr->_begx) * _FontWidth,
+		 _FontBase + (Line+WinPtr->_begy) * _FontHeight);
+	    Text(_RPort, &WinPtr->LnArry[Line].Line[j], i-j);
+	  } else if(_CursesType == ANSI_CURSES) {
+	    _ANSIMove(Line+WinPtr->_begy, j+WinPtr->_begx);
 	    if(WinPtr->LnArry[Line].ATTRS[j] & A_ATRPART) {
 	      sprintf(Buffer, "\033[0;%d;40m", (WinPtr->LnArry[Line].ATTRS[j] & A_CLRPART)+30);
 	      if(WinPtr->LnArry[Line].ATTRS[j] & A_BOLD)
@@ -211,23 +221,23 @@ wrefresh(WINDOW *WinPtr)
 	}
       }
       if(j<i) {
-	if(CursesType == CUST_CURSES) {
-	  SetAPen(RPort, WinPtr->LnArry[Line].ATTRS[j] & A_CLRPART);
+	if(_CursesType == CUST_CURSES) {
+	  SetAPen(_RPort, WinPtr->LnArry[Line].ATTRS[j] & A_CLRPART);
 	  if(WinPtr->LnArry[Line].ATTRS[j] & (A_STANDOUT | A_REVERSE))
-	    SetDrMd(RPort, JAM2|INVERSVID);
+	    SetDrMd(_RPort, JAM2|INVERSVID);
 	  else
-	    SetDrMd(RPort, JAM2);
+	    SetDrMd(_RPort, JAM2);
 	  style = FS_NORMAL;
 	  if(WinPtr->LnArry[Line].ATTRS[j] & A_BOLD)
 	    style |= FSF_BOLD;
 	  if(WinPtr->LnArry[Line].ATTRS[j] & A_UNDERLINE)
 	    style |= FSF_UNDERLINED;
-	  SetSoftStyle(RPort, style, ~0L);
-	  Move(RPort, (j+WinPtr->_begx) * FontWidth,
-	       FontBase + (Line+WinPtr->_begy) * FontHeight);
-	  Text(RPort, &(WinPtr->LnArry[Line].Line[j]), i-j);
-	} else if(CursesType == ANSI_CURSES) {
-	  ANSIMove(Line+WinPtr->_begy, j+WinPtr->_begx);
+	  SetSoftStyle(_RPort, style, ~0L);
+	  Move(_RPort, (j+WinPtr->_begx) * _FontWidth,
+	       _FontBase + (Line+WinPtr->_begy) * _FontHeight);
+	  Text(_RPort, &(WinPtr->LnArry[Line].Line[j]), i-j);
+	} else if(_CursesType == ANSI_CURSES) {
+	  _ANSIMove(Line+WinPtr->_begy, j+WinPtr->_begx);
 	  if(WinPtr->LnArry[Line].ATTRS[j] & A_ATRPART) {
 	    sprintf(Buffer, "\033[0;%d;40m", (WinPtr->LnArry[Line].ATTRS[j] & A_CLRPART)+30);
 	    if(WinPtr->LnArry[Line].ATTRS[j] & A_BOLD)
@@ -253,11 +263,11 @@ wrefresh(WINDOW *WinPtr)
 	}
       }
       WinPtr->LnArry[Line].Touched = FALSE;
-      WinPtr->LnArry[Line].StartCol = WinPtr->_maxx;
+      WinPtr->LnArry[Line].StartCol = WinPtr->_maxx+1;
       WinPtr->LnArry[Line].EndCol = 0;
     }
   }
-  DrawCursor();
+  _DrawCursor();
   if(WinPtr->_clear)		/* Only on this refresh is it OK to clear */
     WinPtr->_clear = FALSE;
   return OK;

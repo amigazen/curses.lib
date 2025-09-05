@@ -37,26 +37,30 @@
  * Revision History
  * ================
  *
- * $Log:	nocbreak.c,v $
- * Revision 1.2  92/06/10  23:44:46  sie
+ * $Log: nocbreak.c,v $
+ * Revision 1.3  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.2  1992/06/10  23:44:46  sie
  * Added serial support.
- * 
+ *
  * Revision 1.1  91/09/07  11:45:05  sie
  * Initial revision
  * 
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/nocbreak.c,v 1.2 92/06/10 23:44:46 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/nocbreak.c,v 1.3 1993/05/17 23:33:10 sie Exp $";
 
 #include "acurses.h"
 
 
 nocbreak(void)
 {
-  if(CursesType == ANSI_CURSES && ifh)
-    CanonMode(ifh);
+  if(_CursesType == ANSI_CURSES && _ifh)
+    _CanonMode(_ifh);
   
-  CursesFlags &= ~CFLAG_CBREAK;
+  _CursesFlags &= ~CFLAG_CBREAK;
   return OK;
 }

@@ -37,14 +37,18 @@
  * Revision History
  * ================
  *
- * $Log:	keypad.c,v $
- * Revision 1.1  91/09/07  11:43:44  sie
+ * $Log: keypad.c,v $
+ * Revision 1.2  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.1  1991/09/07  11:43:44  sie
  * Initial revision
- * 
+ *
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/keypad.c,v 1.1 91/09/07 11:43:44 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/keypad.c,v 1.2 1993/05/17 23:33:10 sie Exp $";
 
 #include "acurses.h"
 
@@ -52,8 +56,8 @@ static char *rcsid = "$Header: SRC:lib/curses/src/RCS/keypad.c,v 1.1 91/09/07 11
 keypad(WINDOW *WinPtr, char flag)
 {
   if(flag)
-    CursesFlags |= CFLAG_KEYPAD;
+    _CursesFlags |= CFLAG_KEYPAD;
   else
-    CursesFlags &= ~CFLAG_KEYPAD;
+    _CursesFlags &= ~CFLAG_KEYPAD;
   return OK;
 }

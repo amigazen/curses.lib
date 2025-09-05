@@ -37,10 +37,13 @@
  * Revision History
  * ================
  *
- * $Log:	_togcur.c,v $
- * Revision 1.3  92/06/10  23:45:17  sie
+ * $Log: _togcur.c,v $
+ * Revision 1.4  1993/05/17  23:30:32  sie
+ * Underscores added to names.
+ *
+ * Revision 1.3  1992/06/10  23:45:17  sie
  * Added serial support.
- * 
+ *
  * Revision 1.2  92/01/25  23:57:26  sie
  * Now uses FontHeight and FontWidth.
  * 
@@ -50,17 +53,17 @@
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/_togcur.c,v 1.3 92/06/10 23:45:17 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/_togcur.c,v 1.4 1993/05/17 23:30:32 sie Exp $";
 
 #include "acurses.h"
 
 
 void
-ToggleCursor(int Line, int Col)
+_ToggleCursor(int Line, int Col)
 {
-  if(CursesType == CUST_CURSES) {
-    SetDrMd(RPort, JAM2 | INVERSVID | COMPLEMENT);
-    Move(RPort, Col*FontWidth, FontBase+Line*FontHeight);
-    Text(RPort, " ", 1);
+  if(_CursesType == CUST_CURSES) {
+    SetDrMd(_RPort, JAM2 | INVERSVID | COMPLEMENT);
+    Move(_RPort, Col*_FontWidth, _FontBase+Line*_FontHeight);
+    Text(_RPort, " ", 1);
   }
 }

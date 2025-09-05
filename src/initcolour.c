@@ -37,10 +37,14 @@
  * Revision History
  * ================
  *
- * $Log:	initcolour.c,v $
- * Revision 1.3  92/06/10  23:44:39  sie
+ * $Log: initcolour.c,v $
+ * Revision 1.4  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.3  1992/06/10  23:44:39  sie
  * Added serial support.
- * 
+ *
  * Revision 1.2  91/09/28  18:33:17  sie
  * DEPTH instead on NPLANES.
  * 
@@ -50,7 +54,7 @@
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/initcolour.c,v 1.3 92/06/10 23:44:39 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/initcolour.c,v 1.4 1993/05/17 23:33:10 sie Exp $";
 
 #include <exec/types.h>
 #include "acurses.h"
@@ -60,7 +64,7 @@ init_color(WORD n, UWORD r, UWORD g, UWORD b)
 {
   if(n<0 || n>=(1<<DEPTH) || r>1000 || g>1000 || b>1000)
     return ERR;
-  if(CursesType == CUST_CURSES)
-    SetRGB4(VPort, n, r*15/1000, g*15/1000, b*15/1000);
+  if(_CursesType == CUST_CURSES)
+    SetRGB4(_VPort, n, r*15/1000, g*15/1000, b*15/1000);
   return OK;
 }

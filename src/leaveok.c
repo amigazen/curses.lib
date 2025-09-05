@@ -37,28 +37,31 @@
  * Revision History
  * ================
  *
- * $Log:	leaveok.c,v $
- * Revision 1.1  91/09/07  11:43:56  sie
+ * $Log: leaveok.c,v $
+ * Revision 1.2  1993/05/17  23:24:55  sie
+ * Minor changes to names and stuff.
+ *
+ * Revision 1.1  1991/09/07  11:43:56  sie
  * Initial revision
- * 
+ *
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/leaveok.c,v 1.1 91/09/07 11:43:56 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/leaveok.c,v 1.2 1993/05/17 23:24:55 sie Exp $";
 
 #include "acurses.h"
 
 
 leaveok(WINDOW *WinPtr, int flag)
 {
-  if(!(CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
+  if(!(_CursesFlags & CFLAG_INITSCR)) /* Haven't called initscr() */
     return ERR;
   
   if(flag) {
-    CursorCol = CursorLine = -1;
-    CursesFlags &= ~CFLAG_CURSOR;
+    _CursorCol = _CursorLine = -1;
+    _CursesFlags &= ~CFLAG_CURSOR;
   } else {
-    CursesFlags |= CFLAG_CURSOR;
+    _CursesFlags |= CFLAG_CURSOR;
   }
   return OK;
 }

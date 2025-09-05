@@ -20,7 +20,14 @@
  * THAT MAY RESULT FROM ITS USE.
  *
  *
- * $Log:	curses.h,v $
+ * $Log: curses.h,v $
+ * Revision 1.13  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.12  1992/12/25  22:18:08  sie
+ * GNU port
+ *
  * Revision 1.11  92/06/20  10:58:39  sie
  * Removed CreatWindow prototype.
  * 
@@ -93,20 +100,7 @@
 #define insertln()                 winsertln(stdscr)
 #define getch()                    wgetch(stdscr)
 #define getstr(ptr)                wgetstr(stdscr, (ptr))
-#define getyx(win,y,x)             ((y) = getcury(win), (x) = getcurx(win))
-#define getbegyx(win,y,x)          ((y) = getbegy(win), (x) = getbegx(win))
-#define getmaxyx(win,y,x)          ((y) = getmaxy(win), (x) = getmaxx(win))
-#define getparyx(win,y,x)          ((y) = getpary(win), (x) = getparx(win))
-#define getcury(win)               ((win)->_cury)
-#define getcurx(win)               ((win)->_curx)
-#define getbegy(win)               ((win)->_begy)
-#define getbegx(win)               ((win)->_begx)
-#define getmaxy(win)               ((win)->_maxy)
-#define getmaxx(win)               ((win)->_maxx)
-#define getpary(win)               ((win)->_pary)
-#define getparx(win)               ((win)->_parx)
-#define getbkgd(win)               ((win)->_bkgd)
-#define getattrs(win)              ((win)->_attrs)
+#define getyx(win,y,x)             ((y) = (win)->_cury, (x) = (win)->_curx)
 #define move(line, col)            wmove(stdscr, (line), (col))
 #define mvdelch(y, x)              (move((y), (x)), delch())
 #define mvwdelch(win, y, x)        (wmove((win),(y),(x)),wdelch((win)))
@@ -260,10 +254,12 @@ int wprintw(WINDOW *WinPtr, char *fmt, ...);
 int mvprintw(short Line, short Col, char *fmt, ...);
 int mvwprintw(WINDOW *WinPtr, short Line, short Col, char *fmt, ...);
 int wrefresh(WINDOW *WinPtr);
+#ifndef NO_SCAN_PROTOS
 int scanw(char *fmt, ...);
 int wscanw(WINDOW *WinPtr, char *fmt, ...);
 int mvscanw(short Line, short Col, char *fmt, ...);
 int mvwscanw(WINDOW *WinPtr, short Line, short Col, char *fmt, ...);
+#endif /* ndef NO_SCAN_PROTOS */
 int wstandout(WINDOW *WinPtr);
 int wstandend(WINDOW *WinPtr);
 int wattrset(WINDOW *WinPtr, UBYTE attr);
@@ -307,5 +303,11 @@ int wsetscrreg(WINDOW *WinPtr, short top, short bottom);
 int scrollok(WINDOW *WinPtr, int flag);
 int wnoutrefresh(WINDOW *WinPtr);
 int doupdate(void);
+int tgetent(char * , char * );
+char * tgetstr(char * , char ** );
+int tputs(char * , int , int (* )(char ));
+char * tgoto(char * , int , int );
+int tgetnum(char * );
+int tgetflag(char * );
 
 #endif /* CURSES_H */

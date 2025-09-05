@@ -37,11 +37,15 @@
  * Revision History
  * ================
  *
- * $Log:	wclear.c,v $
- * Revision 1.4  91/12/30  10:31:18  sie
+ * $Log: wclear.c,v $
+ * Revision 1.5  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.4  1991/12/30  10:31:18  sie
  * Removed LRLine and LRATTRS.
  * The speed increase caused by them was too insignificant.
- * 
+ *
  * Revision 1.3  91/12/28  22:45:35  sie
  * changed attrs to UBYTE from short + some tidying up.
  * 
@@ -55,7 +59,7 @@
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/wclear.c,v 1.4 91/12/30 10:31:18 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wclear.c,v 1.5 1993/05/17 23:33:10 sie Exp $";
 
 #include "acurses.h"
 
@@ -64,14 +68,14 @@ wclear(WINDOW *WinPtr)
 {
   int Line;
   
-  if(!(CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
+  if(!(_CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
     return ERR;
   
   for(Line=0; Line<WinPtr->NLines; Line++) {
     memset(WinPtr->LnArry[Line].Line, ' ', WinPtr->_maxx + 1);
     memset(WinPtr->LnArry[Line].ATTRS, WinPtr->_attrs, WinPtr->_maxx+1);
     WinPtr->LnArry[Line].Touched = FALSE;
-    WinPtr->LnArry[Line].StartCol = WinPtr->_maxx;
+    WinPtr->LnArry[Line].StartCol = WinPtr->_maxx+1;
     WinPtr->LnArry[Line].EndCol = 0;
   }
   WinPtr->_curx = 0;

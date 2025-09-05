@@ -37,17 +37,21 @@
  * Revision History
  * ================
  *
- * $Log:	wgetstr.c,v $
- * Revision 1.2  92/06/10  23:45:00  sie
+ * $Log: wgetstr.c,v $
+ * Revision 1.3  1993/05/17  23:33:10  sie
+ * Underscores added to names.
+ * Changes for version 2.10
+ *
+ * Revision 1.2  1992/06/10  23:45:00  sie
  * Added serial support.
- * 
+ *
  * Revision 1.1  91/09/07  11:50:18  sie
  * Initial revision
  * 
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/wgetstr.c,v 1.2 92/06/10 23:45:00 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/wgetstr.c,v 1.3 1993/05/17 23:33:10 sie Exp $";
 
 #include "acurses.h"
 
@@ -57,13 +61,13 @@ wgetstr(WINDOW *WinPtr, char *ptr)
   char done = FALSE, *BuffStart;
   unsigned char CbreakSet;  /* Used to restore after */
   
-  if(!(CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
+  if(!(_CursesFlags & CFLAG_INITSCR))  /* Haven't called initscr() */
     return ERR;
   
   BuffStart = ptr;
   
   /* Will need to be in CBREAK mode for this */
-  CbreakSet = CursesFlags & CFLAG_CBREAK;
+  CbreakSet = _CursesFlags & CFLAG_CBREAK;
   cbreak();
   while(!done) {
     switch(*ptr = wgetch(WinPtr)) {
@@ -80,11 +84,11 @@ wgetstr(WINDOW *WinPtr, char *ptr)
     case '\b':
       if(--ptr < BuffStart)  /* Don't move before start */
 	ptr = BuffStart;
-      else if(CursesFlags & CFLAG_ECHO) {
+      else if(_CursesFlags & CFLAG_ECHO) {
 	/* Do BS SP BS processing */
-	mvcur(CursorLine, CursorCol, CursorLine, CursorCol - 1);  /* BS */
-	DoEcho(WinPtr, ' ');          /* SP */
-	mvcur(CursorLine, CursorCol, CursorLine, CursorCol - 1);  /* BS */
+	mvcur(_CursorLine, _CursorCol, _CursorLine, _CursorCol - 1);  /* BS */
+	_DoEcho(WinPtr, ' ');          /* SP */
+	mvcur(_CursorLine, _CursorCol, _CursorLine, _CursorCol - 1);  /* BS */
       }
       break;
     default:

@@ -37,17 +37,17 @@
  * Revision History
  * ================
  *
- * $Log:	startcolour.c,v $
- * Revision 1.2  91/12/30  11:52:27  sie
+ * $Log: startcolour.c,v $
+ * Revision 1.2  1991/12/30  11:52:27  sie
  * This now sets DEPTH to 3.
- * 
+ *
  * Revision 1.1  91/09/07  11:47:04  sie
  * Initial revision
  * 
  *
  */
 
-static char *rcsid = "$Header: SRC:lib/curses/src/RCS/startcolour.c,v 1.2 91/12/30 11:52:27 sie Exp $";
+static char *rcsid = "$Header: /SRC/lib/curses/src/RCS/startcolour.c,v 1.2 1991/12/30 11:52:27 sie Exp $";
 
 #include "curses.h"
 
