@@ -1,0 +1,113 @@
+            AMIGA CURSES PACKAGE V2.00             -*-text-*-
+            ==========================
+
+Author : Simon John Raybould    (sie@fulcrum.co.uk)
+Date   : 30th June 1992
+
+
+Version
+=======
+
+$Id: ReadMe,v 1.1 92/06/29 22:56:03 sie Exp Locker: sie $
+
+
+Modification History
+====================
+
+$Log:	ReadMe,v $
+# Revision 1.1  92/06/29  22:56:03  sie
+# Initial revision
+# 
+
+
+Distribution conditions
+-----------------------
+
+    This curses package for the Amiga is NOT public domain. It is freely
+distributable as long as the supplied archive remains intact and the source
+is unchanged.
+
+    Feel free to sell any programs that you have written that require curses
+for as much as you can get for them. I ask for no royalties or payment of any
+kind for the sale of programs using this library. I do ask that a mention is
+made to the fact that the program was linked to this library which is available
+free of charge with source in C. Also I must ask for myself to be credited for
+the curses library somewhere in the docs for your program. Of course, no code
+may be distributed with altered copies of this library linked in. The source
+is provided purely for use with a wide range of compilers.
+
+    This code is all copyright S.J.Raybould 1992 and all rights are reserved.
+
+Source
+------
+
+    I am including the source so that users other than Lattice may benefit
+from this package. This is the result of many requests from Aztec users who
+cannot use the Lattice libraries. Please do not breach the above distribution
+conditions or source will no longer be distributed to everyone, I'll
+start just sending source to people who I know will only use it to get
+curses working with their favorite compiler.
+
+Aims
+----
+
+    This package is mainly aimed at people who wish to port screen based UN*X
+applications to the Amiga.
+
+
+    I have received a few email letters about some people not having
+access to any curses documentation while using earlier versions of my
+library. I had anticipated people have UNIX curses manuals and stuff.
+I have therefore extended the documentation file to be more useful. It
+now includes prototypes and a description of what the functions do. I
+am still fairly sure that I have missed some out so I'll attempt to
+track those down and get them documented soon (I hate writing docs!).
+    If you have a problem with the docs then please let me know as I
+know I have a responsibility to provide decent documentation with the
+stuff I write.
+
+Use
+---
+
+    To use this, include curses.h at the top of your code instead of
+stdio.h (curses.h will include stdio.h). Compile as normal and when
+linking, link in the library 'curses.lib'. 'curses.h' should be
+installed in the same directory as 'stdio.h' (INCLUDE:) with lattice
+V5. 'curses.lib' should be in the same directory as 'lc.lib' or
+'c.lib' (LIB:) with lattice V5.  You can put these files elsewhere but
+you will have to explicitly specify them when accessing them.
+
+Please Note
+-----------
+
+    The curses library should be linked in before all other libraries on
+    the link line.
+
+E.G.  blink lib:c.o foo.o TO foo LIB lib:curses.lib+lib:lc.lib+lib:amiga.lib
+
+
+Credits
+-------
+
+    I feel I must thank certain people for their help in the improvement of
+this package from which we all stand to gain. Without their suggestions, the
+development of this package would have been significantly slower, Thanks.
+
+    Michael Fischer     - For finding many bugs in the first alpha of curses and
+                          continued bug finding and suggestions. Thanks Mike!
+
+    Phil Kernick        - For his excellent suggestions for improvements.
+
+    Kai Vorma           - For suggestions and bug reports.
+
+    jpb@globule.CAM.ORG - For encouraging me to add the ANSI/serial support
+                          and then spotting the errors it was well worth it.
+
+
+    Any bugs, suggestions,  e.t.c. email to 'sie@fulcrum.co.uk'
+
+
+
+Cheers,
+
+       Simon J Raybould
