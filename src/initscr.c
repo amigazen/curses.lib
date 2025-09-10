@@ -1,37 +1,17 @@
-/* -*-C-*-
+/*
  *
  *
  * Filename : initscr.c
  *
- * Author   : Simon J Raybould.    (sie@fulcrum.bt.co.uk).
+ * Author   : Simon J Raybould.
  *
  * Date     : Friday 23rd August 1991.
  *
  * Desc     : Initialise curses.
  *
+ * Copyright (c) 1991-1993 Simon J Raybould
  *
- * THIS CODE IS NOT PUBLIC DOMAIN
- * ==============================
- * 
- * This code is copyright Simon J Raybould 1991, all rights are reserved.
- * All code, ideas, data structures and algorithms remain the property of the
- * author. Neither the whole nor sections of this code may be used as part
- * of other code without the authors consent. If you wish to use some of this
- * code then please email me at (sie@fulcrum.bt.co.uk).
- *
- * This source is not public domain, so you do not have any right to alter it
- * or sell it for personal gain. The source is provided purely for reference
- * purposes. You may re-compile the source with any compiler you choose.
- * You must not distribute altered copies without the authors consent. My
- * intention is that the source will help people isolate any bugs much more
- * effectivly.
- *
- * Disclaimer
- * ==========
- *
- * No implication is made as to this code being fit for any purpose at all.
- * I (the author) shall not be held responsible for any loss of data or damage 
- * to property that may result from its use or misuse.
+ * SPDX-License-Identifier: BSD-2-Clause
  *
  *
  * Revision History
@@ -82,14 +62,12 @@ static char *version = "$VER: Amiga curses (SJR) version 2.00+";
 #include <signal.h>
 #include "acurses.h"
 
-extern struct Library *ConsoleDevice;
-
 static struct NewScreen NewScreen = {
   0, 0, 0, 0, 4, 0, 1, HIRES, CUSTOMSCREEN, NULL, "Curses screen", NULL, NULL
 };
 
 static struct NewWindow NewWindow = {
-  0, 0, 0, 0, -1, -1, RAWKEY, ACTIVATE | BORDERLESS,
+  0, 0, 0, 0, 0xFF, 0xFF, RAWKEY, ACTIVATE | BORDERLESS,
   NULL, NULL, NULL, NULL, NULL, 0,0,0,0, CUSTOMSCREEN
 };
 
@@ -113,7 +91,7 @@ _BreakHandler(void)
   return 0;
 }
 
-initscr(void)
+int initscr(void)
 {
   char *Ptr, *getenv(const char *);
   int Tmp;

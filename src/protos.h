@@ -26,7 +26,7 @@ WINDOW * subwin(WINDOW * , unsigned int , unsigned int , unsigned int , unsigned
 mvprintw.c
  */
 
-int mvprintw(short , short , char * , ...);
+int mvprintw(int , int , char * , ...);
 
 /* Prototypes for functions defined in
 wscanw.c
@@ -44,13 +44,13 @@ int scanw(char * , char * , char * , char * , char * , char * , char * , char * 
 mvwscanw.c
  */
 
-int mvwscanw(WINDOW * , short , short , char * , char * , char * , char * , char * , char * , char * , char * , char * , char * , char * );
+int mvwscanw(WINDOW * , int , int , char * , char * , char * , char * , char * , char * , char * , char * , char * , char * , char * );
 
 /* Prototypes for functions defined in
 mvscanw.c
  */
 
-int mvscanw(short , short , char * , char * , char * , char * , char * , char * , char * , char * , char * , char * , char * );
+int mvscanw(int , int , char * , char * , char * , char * , char * , char * , char * , char * , char * , char * , char * );
 
 /* Prototypes for functions defined in
 printw.c
@@ -86,7 +86,7 @@ int delwin(WINDOW * );
 mvwin.c
  */
 
-int mvwin(WINDOW * , short , short );
+int mvwin(WINDOW * , int , int );
 
 /* Prototypes for functions defined in
 scroll.c
@@ -98,7 +98,7 @@ int scroll(WINDOW * );
 wsetscrreg.c
  */
 
-int wsetscrreg(WINDOW * , short , short );
+int wsetscrreg(WINDOW * , int , int );
 
 /* Prototypes for functions defined in
 _scroll.c
@@ -212,13 +212,13 @@ extern BYTEBITS _CursesFlags;
 
 extern int _CursesType;
 
-extern short _CursorCol;
+extern int _CursorCol;
 
-extern short _CursorLine;
+extern int _CursorLine;
 
-extern short _LCursorLine;
+extern int _LCursorLine;
 
-extern short _LCursorCol;
+extern int _LCursorCol;
 
 extern struct RefreshElement * _HeadRefreshList;
 
@@ -430,7 +430,7 @@ int box(WINDOW * , char , char );
 mvwprintw.c
  */
 
-int mvwprintw(WINDOW * , short , short , char * , ...);
+int mvwprintw(WINDOW * , int , int , char * , ...);
 
 /* Prototypes for functions defined in
 _togcur.c
@@ -442,7 +442,7 @@ void _ToggleCursor(int , int );
 wmove.c
  */
 
-int wmove(WINDOW * , short , short );
+int wmove(WINDOW * , int , int );
 
 /* Prototypes for functions defined in
 _zapcur.c

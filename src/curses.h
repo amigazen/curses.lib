@@ -1,6 +1,6 @@
 /*
  *
- *    Author  : Simon J Raybould.    (sie@fulcrum.bt.co.uk).
+ *    Author  : Simon J Raybould.
  *
  *    Date    : 16th Feb 1990
  *
@@ -9,15 +9,9 @@
  *              include stdio.h for you.
  *
  *
+ * Copyright (c) 1991-1993 Simon J Raybould
  *
- * THIS CODE IS COPYRIGHT S.J.R 1991, ALL RIGHTS ARE RESERVED.
- *
- * THIS SOURCE IS NOT PUBLIC DOMAIN, BUT IS FREELY DISTRIBUTABLE AS
- *                LONG AS IT REMAINS UNALTERED.
- *
- * NO IMPLICATION IS MADE AS TO IT BEING FIT FOR ANY PURPOSE AT ALL
- * I SHALL NOT BE HELD RESPONSIBLE FOR ANY LOSS OF PROPERTY OR DAMAGE
- * THAT MAY RESULT FROM ITS USE.
+ * SPDX-License-Identifier: BSD-2-Clause
  *
  *
  * $Log: curses.h,v $
@@ -247,18 +241,18 @@ int flushinp(void);
 int wgetch(WINDOW *WinPtr);
 int wgetstr(WINDOW *WinPtr, char *ptr);
 int winch(WINDOW *WinPtr);
-int wmove(WINDOW *WinPtr, short Line, short Col);
+int wmove(WINDOW *WinPtr, int Line, int Col);
 int mvcur(int CurLine, int CurCol, int NewLine, int NewCol);
 int printw(char *fmt, ...);
 int wprintw(WINDOW *WinPtr, char *fmt, ...);
-int mvprintw(short Line, short Col, char *fmt, ...);
-int mvwprintw(WINDOW *WinPtr, short Line, short Col, char *fmt, ...);
+int mvprintw(int Line, int Col, char *fmt, ...);
+int mvwprintw(WINDOW *WinPtr, int Line, int Col, char *fmt, ...);
 int wrefresh(WINDOW *WinPtr);
 #ifndef NO_SCAN_PROTOS
 int scanw(char *fmt, ...);
 int wscanw(WINDOW *WinPtr, char *fmt, ...);
-int mvscanw(short Line, short Col, char *fmt, ...);
-int mvwscanw(WINDOW *WinPtr, short Line, short Col, char *fmt, ...);
+int mvscanw(int Line, int Col, char *fmt, ...);
+int mvwscanw(WINDOW *WinPtr, int Line, int Col, char *fmt, ...);
 #endif /* ndef NO_SCAN_PROTOS */
 int wstandout(WINDOW *WinPtr);
 int wstandend(WINDOW *WinPtr);
@@ -297,9 +291,9 @@ WINDOW *newwin(unsigned int NLines,
                unsigned int StartCol);
 int touchwin(WINDOW *WinPtr);
 int delwin(WINDOW *WinPtr);
-int mvwin(WINDOW *WinPtr, short NewLine, short NewCol);
+int mvwin(WINDOW *WinPtr, int NewLine, int NewCol);
 int scroll(WINDOW *WinPtr);
-int wsetscrreg(WINDOW *WinPtr, short top, short bottom);
+int wsetscrreg(WINDOW *WinPtr, int top, int bottom);
 int scrollok(WINDOW *WinPtr, int flag);
 int wnoutrefresh(WINDOW *WinPtr);
 int doupdate(void);

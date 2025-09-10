@@ -9,15 +9,10 @@
  * Date        : 16th February 1990
  *
  *
+ * Copyright (c) 1991-1993 Simon J Raybould
  *
- * THIS CODE IS COPYRIGHT S.J.R 1991, ALL RIGHTS ARE RESERVED.
+ * SPDX-License-Identifier: BSD-2-Clause
  *
- * THIS SOURCE IS NOT PUBLIC DOMAIN, BUT IS FREELY DISTRIBUTABLE AS
- *                LONG AS IT REMAINS UNALTERED.
- *
- * NO IMPLICATION IS MADE AS TO IT BEING FIT FOR ANY PURPOSE AT ALL
- * I SHALL NOT BE HELD RESPONSIBLE FOR ANY LOSS OF PROPERTY OR DAMAGE
- * THAT MAY RESULT FROM ITS USE.
  *
  *
  * $Log: acurses.h,v $
@@ -58,21 +53,24 @@
 
 #include <intuition/intuition.h>
 #include <intuition/screens.h>
-#include <libraries/dos.h>
 #include <sys/types.h>
 #include <exec/types.h>
 #include <exec/io.h>
 #include <exec/memory.h>
+#include <dos/dos.h>
 #include <devices/audio.h>
+#include <devices/inputevent.h>
+#include <devices/console.h>
+#include <ctype.h>
+#include <unistd.h>
+#include "term.h" /* include local term.h until integrated with UniLib3 */
 
-#ifdef LATTICE
 #include <proto/exec.h>
 #include <proto/intuition.h>
 #include <proto/graphics.h>
-#include <dos.h>
-#include <proto/console.h>
 #include <proto/dos.h>
-#endif /* LATTICE */
+#include <proto/console.h>
+#include <clib/alib_protos.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -170,12 +168,13 @@ struct RefreshElement {
 extern unsigned char _CursesFlags;
 extern int _CursesType;
 extern unsigned char _GetchNChars, _GetchBufPos;
-extern short _CursorCol, _CursorLine, _LCursorLine, _LCursorCol;
+extern int _CursorCol, _CursorLine, _LCursorLine, _LCursorCol;
 extern struct RefreshElement *_HeadRefreshList;
 extern struct RastPort *_RPort;
 extern struct ViewPort *_VPort;
 extern struct IntuitionBase *IntuitionBase;
 extern struct GfxBase *GfxBase;
+extern struct Library *ConsoleDevice;
 extern struct IOStdReq ioreq;
 extern struct Screen *_CursesScreen;
 extern struct Window *_CursesWindow;
@@ -213,4 +212,8 @@ void _ANSIClearRect(int line,
 long _RawMode(BPTR afh);
 long _CanonMode(BPTR afh);
 WINDOW *_CreatWindow(int NLines, int NCols, int StartLine, int StartCol, WINDOW *Orig);
+
+/* Function prototypes for internal functions */
+void _mergewin(WINDOW *win1, WINDOW *win2, int flag);
+int gettmode(void);
 
