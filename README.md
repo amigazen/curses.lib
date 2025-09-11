@@ -1,6 +1,6 @@
-# Curses.lib for Amiga
+# curses.lib for Amiga
 
-This is Curses.lib for Amiga, a BSD-licensed implementation of the curses screen manipulation library for Amiga computers.
+This is _curses.lib_ for Amiga, a BSD-licensed implementation of the curses screen manipulation library for Amiga computers.
 
 ## [amigazen project](http://www.amigazen.com)
 
@@ -22,9 +22,9 @@ PRs for all of amigazen projects are gratefully received at [GitHub](https://git
 
 The original author of the *curses* software is not affiliated with the amigazen project. This software is redistributed on terms described in the documentation, particularly the file LICENSE.md
 
-## About Curses.lib for Amiga
+## About curses.lib for Amiga
 
-Curses is a screen manipulation package that is used quite extensively in the UNIX environment. This Amiga implementation was originally created by Simon John Raybould to enable porting of UNIX programs that used curses to the Amiga platform.
+Curses is a screen manipulation package that is used quite extensively in the UNIX environment, and a part of the POSIX specification - a POSIX platform needs a curses or ncurses implementation to be compliant. This Amiga implementation was originally created by Simon John Raybould to enable porting of UNIX programs that used curses to the Amiga platform.
 
 ### History
 
@@ -114,42 +114,6 @@ int main(void)
     return 0;
 }
 ```
-
-## API Reference
-
-The curses library provides a comprehensive set of functions for screen manipulation. Key functions include:
-
-### Window Management
-- `initscr()` - Initialize curses
-- `endwin()` - Clean up and exit
-- `newwin()` - Create new window
-- `subwin()` - Create subwindow
-- `delwin()` - Delete window
-
-### Text Output
-- `addch()` / `waddch()` - Add character
-- `addstr()` / `waddstr()` - Add string
-- `printw()` / `wprintw()` - Formatted output
-- `move()` / `wmove()` - Move cursor
-
-### Screen Control
-- `refresh()` / `wrefresh()` - Update screen
-- `clear()` / `wclear()` - Clear window
-- `erase()` / `werase()` - Erase window
-- `scroll()` - Scroll window
-
-### Input Handling
-- `getch()` / `wgetch()` - Get character
-- `getstr()` / `wgetstr()` - Get string
-- `keypad()` - Enable special key translation
-
-### Attributes and Colors
-- `attron()` / `wattron()` - Turn on attributes
-- `attroff()` / `wattroff()` - Turn off attributes
-- `start_color()` - Enable color mode
-- `init_color()` - Set custom colors
-
-For complete API documentation, see [curses.doc](curses.doc).
 
 ## Frequently Asked Questions
 

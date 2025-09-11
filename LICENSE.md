@@ -25,4 +25,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # Acknowledgements
 
-This software originally written by Simon J. Raybould in 1991 is now licensed under this BSD 2-Clause License. 
+This software originally written by Simon J. Raybould in 1991 is now licensed 
+under this BSD 2-Clause License. Simon graciously permitted curses.lib to be 
+relicensed on BSD terms, and has approved the PR in the github project where 
+the license changes were made.
