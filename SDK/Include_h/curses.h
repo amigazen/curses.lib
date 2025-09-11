@@ -1,6 +1,6 @@
 /*
  *
- *    Author  : Simon J Raybould.    (sie@fulcrum.bt.co.uk).
+ *    Author  : Simon J Raybould.
  *
  *    Date    : 16th Feb 1990
  *
@@ -9,16 +9,9 @@
  *              include stdio.h for you.
  *
  *
+ * Copyright (c) 1991-1993 Simon J Raybould
  *
- * THIS CODE IS COPYRIGHT S.J.R 1991, ALL RIGHTS ARE RESERVED.
- *
- * THIS SOURCE IS NOT PUBLIC DOMAIN, BUT IS FREELY DISTRIBUTABLE AS
- *                LONG AS IT REMAINS UNALTERED.
- *
- * NO IMPLICATION IS MADE AS TO IT BEING FIT FOR ANY PURPOSE AT ALL
- * I SHALL NOT BE HELD RESPONSIBLE FOR ANY LOSS OF PROPERTY OR DAMAGE
- * THAT MAY RESULT FROM ITS USE.
- *
+ * SPDX-License-Identifier: BSD-2-Clause
  *
  * $Log: curses.h,v $
  * Revision 1.13  1993/05/17  23:33:10  sie

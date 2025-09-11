@@ -16,7 +16,7 @@ src/makefile is a GNU make makefile but one that will drive SAS/C's sc compiler 
 
 ```
 cd src
-make
+make -f makefile.sas
 ```
 
 Adapting the makefile to work with smake directly is a ToDo item.

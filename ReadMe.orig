@@ -1,20 +1,23 @@
-            AMIGA CURSES PACKAGE V2.10             -*-text-*-
+            AMIGA CURSES PACKAGE V2.10       
             ==========================
 
-Author : Simon John Raybould    (sie@fulcrum.co.uk)
+Author : Simon John Raybould  
 Date   : 12th June 1993
 
 
 Version
 =======
 
-$Id: ReadMe,v 1.2 1993/06/12 20:19:21 sie Exp $
+$Id: ReadMe,v 1.3 2025/09/05 21:36:21 sie Exp $
 
 
 Modification History
 ====================
 
 $Log: ReadMe,v $
+# Revision 1.3  2025/09/05  21:36:21 amigazen 
+# Replaced original licensing conditions with new BSD-2-Clause license
+#
 # Revision 1.2  1993/06/12  20:19:21  sie
 # Removed all the unpleasent, heavy nastiness about copying and stuff.
 #
@@ -26,32 +29,32 @@ $Log: ReadMe,v $
 Distribution conditions
 -----------------------
 
-This curses package for the Amiga is freely distributable as long as
-the supplied archive remains intact and the source code is unchanged.
+As of September 2025 the previous distribution conditions and restrictions no
+longer apply and the amiga curses package is released under a BSD-2-Clause license thus:
 
-Feel free to sell any programs that you have written that require
-curses for as much as you can get for them.
+Copyright (c) 1991 Simon J. Raybould. All rights reserved.
 
-I ask for no royalties or payment of any kind for the sale of programs
-using this library.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
 
-All I ask is that a mention is made to the fact that your program used
-this library which is available free of charge with source.
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
 
-No code may be distributed with altered copies of this library linked
-in.
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
 
-Source
-------
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-I am including the source so that users other than SAS and GNU may
-benefit from this package.
-
-Please do not breach the above distribution conditions or source will
-no longer be distributed freely.
-
-The source code is copyright S.J.Raybould 1991/92/93 and all rights
-are reserved.
 
 Aims
 ----
@@ -129,11 +132,11 @@ significantly slower, Thanks.
 
     Kai Vorma           - For suggestions and bug reports.
 
-    jpb@globule.CAM.ORG - For encouraging me to add the ANSI/serial support
+    jpb@redacted - For encouraging me to add the ANSI/serial support
                           and then spotting the errors. It was well worth it.
 
     Matthew Rex         - For porting the code to work with DICE,
                           thanks Matt !
 
 
-    Any bugs, suggestions,  e.t.c. email to 'sie@fulcrum.co.uk'
+    Any bugs, suggestions,  e.t.c. email to 'redacted'
